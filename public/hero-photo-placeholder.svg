@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Placeholder bergaya doodle bertuliskan inisial AF — ganti dengan foto Achmad Fauzan">
+  <!-- Latar polaroid -->
+  <rect x="8" y="8" width="384" height="484" fill="#f8f9fa" stroke="#1c1c1c" stroke-width="3" stroke-linejoin="round" />
+
+  <!-- Lingkaran tangan (wajah avatar) -->
+  <circle cx="200" cy="210" r="120" fill="none" stroke="#1c1c1c" stroke-width="4" />
+  <!-- Lingkaran kedua lebih kasar, sedikit meleset = vibe hand-drawn -->
+  <circle cx="200" cy="210" r="120" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-dasharray="4 7" opacity="0.5" />
+
+  <!-- Highlighter kuas di belakang inisial -->
+  <rect x="120" y="170" width="160" height="90" fill="#ffd700" opacity="0.55" />
+
+  <!-- Inisial AF -->
+  <text x="200" y="245" font-family="'Comic Sans MS', cursive, sans-serif" font-size="110" font-weight="bold" fill="#1c1c1c" text-anchor="middle">AF</text>
+
+  <!-- Catatan tangan di bawah -->
+  <text x="200" y="395" font-family="'Comic Sans MS', cursive, sans-serif" font-size="26" fill="#5a5650" text-anchor="middle" font-style="italic">(foto menyusul)</text>
+
+  <!-- Garis sketsa dekoratif -->
+  <path d="M60 430 Q 200 460 340 430" fill="none" stroke="#1c1c1c" stroke-width="2" stroke-linecap="round" opacity="0.4" />
+</svg>

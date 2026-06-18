@@ -1,26 +1,150 @@
 @import "tailwindcss";
 
+/*
+ * ──────────────────────────────────────────────────────────────────────────
+ *  Doodle / Hand-Drawn Sketchbook Theme
+ *  Source of truth: DESIGN.md (palet, tipografi, estetika organic).
+ *  Konvensi: hindari border-radius seragam & generic — pakai .rough-border.
+ * ──────────────────────────────────────────────────────────────────────────
+ */
+
+@theme {
+  /* ── Color: Paper ── */
+  --color-paper: #f4f0eb;
+  --color-paper-soft: #f8f9fa;
+  --color-paper-dark: #ece6dd;
+
+  /* ── Color: Ink ── */
+  --color-ink: #1c1c1c;
+  --color-ink-soft: #2d2d2d;
+  --color-ink-muted: #5a5650;
+
+  /* ── Color: Highlighter Accents (dekorasi, bukan teks penting) ── */
+  --color-highlighter-yellow: #ffd700;
+  --color-highlighter-blue: #2196f3;
+  --color-highlighter-pink: #ffb6c1;
+
+  /* ── Typography ── */
+  --font-handwritten: var(--font-kalam), "Comic Sans MS", cursive;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Base
+ *  Catatan: DESIGN.md eksplisit paper aesthetic — tidak ada dark-mode otomatis.
+ * ────────────────────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  /*
+   * Offset anchor jump agar tidak tertutup sticky Header (~88px).
+   * Lebih bersih daripada scroll-mt-* per section.
+   */
+  scroll-padding-top: 6rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  /*
+   * Tekstur kertas halus: noise SVG inline opacity rendah di atas warna paper.
+   * Cukup untuk nuansa sketchbook, tidak mengganggu kontras WCAG AA.
+   */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(28, 28, 28, 0.035) 1px, transparent 0);
+  background-size: 22px 22px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Anti-Slop Reset: focus state ring tangan kasar
+ *  (DESIGN.md §Accessibility — bukan outline default browser)
+ * ────────────────────────────────────────────────────────────────────────── */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 3px dashed var(--color-ink);
+  outline-offset: 4px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Utilitas Rough Border (signature doodle aesthetic)
+ *  Tiap varian punya proporsi radius berbeda — tidak semua elemen identik.
+ * ────────────────────────────────────────────────────────────────────────── */
+.rough-border {
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.rough-border-alt {
+  border-radius: 15px 225px 15px 255px / 225px 15px 255px 15px;
+}
+
+.rough-border-soft {
+  border-radius: 125px 10px 180px 20px / 20px 180px 10px 125px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Utilitas Highlighter (kuas di belakang teks)
+ *  Pakai sebagai wrapper <span class="highlight-yellow">…</span>.
+ * ────────────────────────────────────────────────────────────────────────── */
+.highlight-yellow,
+.highlight-blue,
+.highlight-pink {
+  background-image: linear-gradient(
+    transparent 55%,
+    var(--highlight-stroke) 55%,
+    var(--highlight-stroke) 92%,
+    transparent 92%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 0.15em;
+}
+
+.highlight-yellow {
+  --highlight-stroke: var(--color-highlighter-yellow);
+}
+
+.highlight-blue {
+  --highlight-stroke: var(--color-highlighter-blue);
+}
+
+.highlight-pink {
+  --highlight-stroke: var(--color-highlighter-pink);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Utility: tulisan tangan & display
+ * ────────────────────────────────────────────────────────────────────────── */
+.font-handwritten {
+  font-family: var(--font-handwritten);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Accessibility: Hormati prefers-reduced-motion
+ *  (DESIGN.md §Motion — animasi diganti fade sederhana, bukan dihilangkan.)
+ * ────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Placeholder screenshot bergaya doodle — ganti dengan tangkapan layar project yang sebenarnya">
+  <!-- Bingkai browser mockup -->
+  <rect x="10" y="10" width="780" height="480" fill="#f8f9fa" stroke="#1c1c1c" stroke-width="3" stroke-linejoin="round" />
+  <!-- Bar browser -->
+  <rect x="10" y="10" width="780" height="48" fill="#ece6dd" stroke="#1c1c1c" stroke-width="3" />
+  <!-- Lingkaran window control -->
+  <circle cx="38" cy="34" r="7" fill="#ffd700" stroke="#1c1c1c" stroke-width="2" />
+  <circle cx="60" cy="34" r="7" fill="#2196f3" stroke="#1c1c1c" stroke-width="2" />
+  <circle cx="82" cy="34" r="7" fill="#ffb6c1" stroke="#1c1c1c" stroke-width="2" />
+  <!-- Address bar -->
+  <rect x="130" y="22" width="500" height="24" rx="12" fill="#f4f0eb" stroke="#1c1c1c" stroke-width="1.5" />
+
+  <!-- Konten placeholder: garis sketsa simulasi layout -->
+  <!-- Header area -->
+  <rect x="60" y="100" width="200" height="24" fill="none" stroke="#1c1c1c" stroke-width="2" stroke-dasharray="6 6" opacity="0.4" />
+  <rect x="640" y="100" width="100" height="24" rx="12" fill="none" stroke="#1c1c1c" stroke-width="2" stroke-dasharray="6 6" opacity="0.4" />
+
+  <!-- Highlighter kuas di tengah -->
+  <rect x="200" y="210" width="400" height="60" fill="#ffd700" opacity="0.4" />
+  <!-- "screenshot menyusul" teks -->
+  <text x="400" y="252" font-family="'Comic Sans MS', cursive, sans-serif" font-size="34" font-weight="bold" fill="#1c1c1c" text-anchor="middle">screenshot menyusul</text>
+
+  <!-- Card sketsa dekoratif -->
+  <rect x="80" y="320" width="180" height="120" rx="8" fill="none" stroke="#1c1c1c" stroke-width="2" opacity="0.3" />
+  <rect x="310" y="320" width="180" height="120" rx="8" fill="none" stroke="#1c1c1c" stroke-width="2" opacity="0.3" />
+  <rect x="540" y="320" width="180" height="120" rx="8" fill="none" stroke="#1c1c1c" stroke-width="2" opacity="0.3" />
+</svg>
