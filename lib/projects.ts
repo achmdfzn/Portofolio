@@ -31,6 +31,7 @@ export const PROJECTS: readonly Project[] = [
     problemStatement:
       "Tim butuh fondasi backend yang skalabel dan dapat diandalkan untuk menangani ribuan request per detik. Sistem lama monolitik sering crash saat traffic naik, tidak ada validasi data yang konsisten, dan debugging menjadi mimpi buruk karena log tidak terstruktur. Tujuan: membangun arsitektur microservices yang setiap service bisa dikembangkan, di-deploy, dan diskalakan secara independen tanpa mengorbankan keamanan.",
     role: "Lead Backend Engineer — merancang arsitektur microservices, mendefinisikan kontrak API berbasis Pydantic, dan mengimplementasikan middleware keamanan (autentikasi JWT, rate-limiting per endpoint, dan audit logging).",
+    // TODO: Ganti dengan URL repo GitHub asli saat project di-publish.
     githubUrl: "#",
     screenshots: [],
   },
@@ -44,6 +45,7 @@ export const PROJECTS: readonly Project[] = [
     problemStatement:
       "Aplikasi SaaS butuh lapisan keamanan data yang tidak bisa di-bypass dari application code. Banyak implementasi autentikasi tradisional mengandalkan middleware yang rapuh — sekali ada bug di query builder, data user bisa bocor. Pendekatan Row Level Security (RLS) di PostgreSQL menjamin bahwa meskipun ada celah di aplikasi, database sendiri yang menolak akses tidak sah di level baris.",
     role: "Fullstack Developer — mendesain skema database dengan policy RLS granular, membangun flow autentikasi (magic link + OAuth), dan mengintegrasikan Supabase SSR untuk manajemen session yang aman di Next.js App Router.",
+    // TODO: Ganti dengan URL repo GitHub asli saat project di-publish.
     githubUrl: "#",
     screenshots: [],
   },
@@ -57,6 +59,7 @@ export const PROJECTS: readonly Project[] = [
     problemStatement:
       "Tim remote butuh papan tulis virtual yang terasa natural untuk brainstorming. Tools yang ada terlalu kaku, lambat saat banyak user, atau punya UI yang membosankan. Tantangan teknis: sinkronisasi real-time antar banyak klien tanpa konflik, performa rendering canvas yang halus di perangkat low-end, dan UX yang menyenangkan dipakai berjam-jam.",
     role: "Frontend Engineer — membangun komponen Canvas interaktif dengan optimasi performa (dirty rect rendering, requestAnimationFrame throttling), serta integrasi client WebSocket untuk sinkronisasi stroke real-time.",
+    // TODO: Ganti dengan URL repo GitHub asli saat project di-publish.
     githubUrl: "#",
     screenshots: [],
   },

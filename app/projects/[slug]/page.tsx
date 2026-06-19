@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PROJECTS, getProjectBySlug } from "@/lib/projects";
+import { Polaroid } from "@/components/Polaroid";
+import { TechBadge } from "@/components/TechBadge";
 
 /**
  * Halaman detail project / case study (DESIGN.md §8).
@@ -66,7 +67,7 @@ export default async function ProjectDetailPage({
       : ["/screenshots/placeholder.svg"];
 
   return (
-    <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-16 sm:py-24">
+    <main id="main" className="mx-auto w-full max-w-4xl flex-1 px-6 py-16 sm:py-24">
       {/* ── Back link ── */}
       <Link
         href="/#projects"
@@ -94,8 +95,8 @@ export default async function ProjectDetailPage({
       </header>
 
       {/* ── Problem Statement (sticky note) ── */}
-      <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
+      <section aria-labelledby="detail-problem" className="mt-16">
+        <h2 id="detail-problem" className="font-display text-2xl font-bold text-ink sm:text-3xl">
           Masalah yang{" "}
           <span className="highlight-blue">diselesaikan</span>
         </h2>
@@ -107,8 +108,8 @@ export default async function ProjectDetailPage({
       </section>
 
       {/* ── Peran (role) ── */}
-      <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
+      <section aria-labelledby="detail-role" className="mt-16">
+        <h2 id="detail-role" className="font-display text-2xl font-bold text-ink sm:text-3xl">
           Peran saya
         </h2>
         <p className="mt-6 max-w-2xl font-handwritten text-xl leading-relaxed text-ink-soft sm:text-2xl">
@@ -117,83 +118,56 @@ export default async function ProjectDetailPage({
       </section>
 
       {/* ── Tech Stack ── */}
-      <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
+      <section aria-labelledby="detail-tech" className="mt-16">
+        <h2 id="detail-tech" className="font-display text-2xl font-bold text-ink sm:text-3xl">
           Tech <span className="highlight-yellow">stack</span>
         </h2>
         <ul className="mt-6 flex flex-wrap gap-3">
           {project.tech.map((tech) => (
-            <li
-              key={tech}
-              className="rough-border-soft border border-ink/30 bg-paper px-4 py-2 font-handwritten text-base text-ink-soft sm:text-lg"
-            >
-              {tech}
-            </li>
+            <TechBadge key={tech} tech={tech} size="md" />
           ))}
         </ul>
       </section>
 
       {/* ── Screenshot polaroid ── */}
-      <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
+      <section aria-labelledby="detail-screenshots" className="mt-16">
+        <h2 id="detail-screenshots" className="font-display text-2xl font-bold text-ink sm:text-3xl">
           <span className="highlight-blue">Tampilan</span>
         </h2>
         <div className="mt-8 flex flex-col gap-12 sm:gap-16">
           {screenshots.map((src, i) => (
-            <PolaroidScreenshot
-              key={src + i}
+            <Polaroid
+              key={`${src}-${i}`}
               src={src}
               alt={`${project.title} — tangkapan layar ${i + 1}`}
+              width={800}
+              height={500}
               rotate={i % 2 === 0 ? -2 : 2}
+              captionGap="md"
+              className="mx-auto w-full max-w-2xl"
             />
           ))}
         </div>
       </section>
 
-      {/* ── Tombol GitHub stempel ── */}
-      <section className="mt-20 flex justify-center sm:mt-24">
-        <a
-          href={project.githubUrl}
-          target={project.githubUrl !== "#" ? "_blank" : undefined}
-          rel={
-            project.githubUrl !== "#" ? "noopener noreferrer" : undefined
-          }
-          aria-label={`Lihat ${project.title} di GitHub`}
-          className="group rough-border inline-flex items-center gap-3 border-2 border-ink bg-highlighter-yellow px-10 py-5 shadow-[8px_8px_0_0_var(--color-ink)] transition-shadow hover:shadow-[12px_12px_0_0_var(--color-ink)] sm:px-12 sm:py-6"
-        >
-          <GitHubStampIcon className="h-7 w-7 text-ink sm:h-8 sm:w-8" />
-          <span className="font-display text-xl font-bold uppercase tracking-wider text-ink sm:text-2xl">
-            Lihat di GitHub
-          </span>
-        </a>
-      </section>
+      {/* ── Tombol GitHub stempel (hanya tampil jika URL bukan placeholder) ── */}
+      {project.githubUrl !== "#" && (
+        <section className="mt-20 flex justify-center sm:mt-24">
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Lihat ${project.title} di GitHub`}
+            className="rough-border inline-flex items-center gap-3 border-2 border-ink bg-highlighter-yellow px-10 py-5 shadow-[8px_8px_0_0_var(--color-ink)] transition-shadow hover:shadow-[12px_12px_0_0_var(--color-ink)] sm:px-12 sm:py-6"
+          >
+            <GitHubStampIcon className="h-7 w-7 text-ink sm:h-8 sm:w-8" />
+            <span className="font-display text-xl font-bold uppercase tracking-wider text-ink sm:text-2xl">
+              Lihat di GitHub
+            </span>
+          </a>
+        </section>
+      )}
     </main>
-  );
-}
-
-/* ── Komponen: screenshot dalam bingkai polaroid ── */
-function PolaroidScreenshot({
-  src,
-  alt,
-  rotate,
-}: {
-  src: string;
-  alt: string;
-  rotate: number;
-}) {
-  return (
-    <div
-      className="rough-border-soft mx-auto w-full max-w-2xl border-2 border-ink bg-paper-soft p-3 pb-10 shadow-[8px_8px_0_0_var(--color-ink)]"
-      style={{ transform: `rotate(${rotate}deg)` }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        width={800}
-        height={500}
-        className="rough-border-soft h-auto w-full border border-ink/20 bg-paper-dark"
-      />
-    </div>
   );
 }
 
