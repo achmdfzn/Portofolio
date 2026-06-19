@@ -32,7 +32,8 @@
 
 /* ──────────────────────────────────────────────────────────────────────────
  *  Base
- *  Catatan: DESIGN.md eksplisit paper aesthetic — tidak ada dark-mode otomatis.
+ *  Paper aesthetic sebagai default (light). Dark mode opt-in via tombol
+ *  toggle di Header — override token warna di selector .dark di bawah.
  * ────────────────────────────────────────────────────────────────────────── */
 :root {
   --background: var(--color-paper);
@@ -42,10 +43,10 @@
 html {
   scroll-behavior: smooth;
   /*
-   * Offset anchor jump agar tidak tertutup sticky Header (~88px).
-   * Lebih bersih daripada scroll-mt-* per section.
+   * Offset anchor jump untuk breathing room. Header sekarang non-sticky
+   * (scroll away), jadi offset kecil cukup — bukan kompensasi sticky bar.
    */
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 1.5rem;
 }
 
 body {
@@ -61,6 +62,57 @@ body {
   background-size: 22px 22px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Dark Mode — override token warna sketchbook ke versi gelap hangat.
+ *  Class .dark di-apply pada <html> via script anti-FOUC di layout + tombol
+ *  toggle di Header. Estetika tetap "paper", hanya di-invert tone-nya.
+ * ────────────────────────────────────────────────────────────────────────── */
+.dark {
+  --color-paper: #1a1815;
+  --color-paper-soft: #242019;
+  --color-paper-dark: #15130f;
+
+  --color-ink: #f4f0eb;
+  --color-ink-soft: #e0dcd4;
+  --color-ink-muted: #a8a39a;
+
+  /* Highlighter sedikit lebih terang supaya tetap pop di latar gelap. */
+  --color-highlighter-yellow: #ffe14d;
+  --color-highlighter-blue: #5ba8f5;
+  --color-highlighter-pink: #ffc6cf;
+}
+
+.dark body {
+  /* Titik grid lebih terang & lebih transparan untuk nuansa kertas gelap. */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(244, 240, 235, 0.05) 1px, transparent 0);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Skip-to-content link (WCAG 2.4.1 — bypass blocks)
+ * ────────────────────────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-handwritten);
+  font-size: 1.125rem;
+  color: var(--color-ink);
+  background: var(--color-highlighter-yellow);
+  border: 2px solid var(--color-ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  outline: 3px dashed var(--color-ink);
+  outline-offset: 4px;
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -124,14 +176,52 @@ body {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
- *  Utility: tulisan tangan & display
+ *  Doodle Panel (Hero — grid panel berwarna highlighter)
+ *  Background tipis + border kasar. Warna diatur via CSS custom property
+ *  --panel-bg (default kuning). Override per panel dengan inline style.
  * ────────────────────────────────────────────────────────────────────────── */
-.font-handwritten {
-  font-family: var(--font-handwritten);
+.doodle-panel {
+  --panel-bg: var(--color-highlighter-yellow);
+  background-color: color-mix(in srgb, var(--panel-bg) 18%, transparent);
+  border: 2px solid var(--color-ink);
 }
 
-.font-display {
-  font-family: var(--font-display);
+/* ──────────────────────────────────────────────────────────────────────────
+ *  Marquee / Ticker Animation (Skills Section)
+ *  CSS-only infinite scroll — performa optimal tanpa JS layout thrash.
+ *  Arah & delay diatur via CSS custom property per row.
+ * ────────────────────────────────────────────────────────────────────────── */
+.marquee-track {
+  animation: marquee-scroll 40s linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+  animation-delay: var(--marquee-delay, 0s);
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+/* ── Reduced motion override: hentikan marquee ── */
+.reduced-motion-marquee .marquee-track {
+  animation: none;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ *  TechBadge Hover (micro-interaction — kasar/organik)
+ *  CSS-only supaya TechBadge tetap Server Component.
+ * ────────────────────────────────────────────────────────────────────────── */
+.tech-badge {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.tech-badge:hover {
+  transform: scale(1.08) rotate(-1deg);
+  box-shadow: 3px 3px 0 var(--color-ink);
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -146,5 +236,11 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Disable tech-badge hover micro-interaction */
+  .tech-badge:hover {
+    transform: none;
+    box-shadow: none;
   }
 }

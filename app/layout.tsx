@@ -6,6 +6,17 @@ import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 /*
+ * ThemeScript — anti-FOUC: set class .dark pada <html> SEBELUM React mount.
+ *
+ *  - Dijalankan synchronously di <head> (blocking) supaya tema benar dari
+ *    frame pertama, tanpa flash tema putih.
+ *  - Prioritas: localStorage("theme") → prefers-color-scheme.
+ *  - suppressHydrationWarning di <html> diperlukan karena class .dark
+ *    mungkin ditambah oleh script ini sebelum React hydrate.
+ */
+const THEME_SCRIPT = `(function(){try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;var d=s?s==='dark':m;if(d){document.documentElement.classList.add('dark');}}catch(e){}})();`;
+
+/*
  * Tipografi doodle (DESIGN.md §Typography):
  *  - Handwritten: Kalam   → headline & catatan tangan
  *  - Display:     Space Grotesk → kontras tegas pada judul
@@ -60,6 +71,14 @@ export const metadata: Metadata = {
     title: "Achmad Fauzan - Fullstack Developer",
     description:
       "Fullstack Developer dengan FastAPI, Next.js, dan Supabase. Backend sekuat frontend.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Achmad Fauzan — Fullstack Developer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -81,9 +100,16 @@ export default function RootLayout({
   return (
     <html
       lang="id"
+      suppressHydrationWarning
       className={`${kalam.variable} ${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col bg-paper text-ink">
+        <a href="#main" className="skip-link">
+          Langsung ke konten utama
+        </a>
         <Intro />
         <Header />
         {children}
