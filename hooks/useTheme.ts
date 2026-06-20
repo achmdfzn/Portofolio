@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 /**
  * useTheme — manajemen Light/Dark mode tanpa FOUC.
@@ -54,7 +55,7 @@ export function useTheme() {
   // mounted: gunakan fakta bahwa getServerSnapshot !== getClientSnapshot
   // setelah mount. Tapi lebih eksplisit: cek via resolved theme snapshot —
   // kita pakai store terpisah sederhana untuk flag mounted.
-  const mounted = useIsMountedClient();
+  const mounted = useIsMounted();
 
   const toggleTheme = useCallback(() => {
     const next: Theme =
@@ -72,14 +73,4 @@ export function useTheme() {
   }, []);
 
   return { theme, toggleTheme, mounted };
-}
-
-/** Flag mounted via useSyncExternalStore (menghindari setState-dalam-effect). */
-const noopSubscribe = () => () => {};
-function useIsMountedClient(): boolean {
-  return useSyncExternalStore(
-    noopSubscribe,
-    () => true, // client snapshot
-    () => false // server snapshot
-  );
 }

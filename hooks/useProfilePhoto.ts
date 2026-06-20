@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 /**
  * useProfilePhoto — foto profil hero, reactive & hydration-safe.
@@ -44,18 +45,9 @@ function subscribe(callback: () => void): () => void {
   };
 }
 
-const noopSubscribe = () => () => {};
-function useIsMountedClient(): boolean {
-  return useSyncExternalStore(
-    noopSubscribe,
-    () => true,
-    () => false
-  );
-}
-
 export function useProfilePhoto() {
   const photo = useSyncExternalStore(subscribe, readClient, getServer);
-  const mounted = useIsMountedClient();
+  const mounted = useIsMounted();
 
   /** Simpan data URL foto. Dispatch event supaya Hero ikut update. */
   const setPhoto = useCallback((dataUrl: string | null) => {
@@ -84,5 +76,3 @@ export function useProfilePhoto() {
   };
 }
 
-/** Konstanta diekspos untuk dipakai komponen lain (mis. dashboard). */
-export const PROFILE_PHOTO_STORAGE_KEY = STORAGE_KEY;

@@ -178,21 +178,20 @@ export const mockAuthClient: AuthClient = {
   },
 };
 
-/* ── Aksesori yang dipakai hook (subscribe + event name) ── */
-
-export const AUTH_CHANGE_EVENT = CHANGE_EVENT;
-export const AUTH_STORAGE_KEY = STORAGE_KEY;
-
 /** Subscribe listener ke perubahan sesi. Return unsubscribe. */
 export function subscribeAuth(callback: () => void): () => void {
+  // Handler storage harus disimpan referensinya supaya bisa di-remove.
+  // Sebelumnya cleanup memakai `callback` sebagai referensi storage listener
+  // (anonymous fn) → listener tidak pernah lepas → memory leak.
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === STORAGE_KEY) callback();
+  };
   window.addEventListener(CHANGE_EVENT, callback);
   // Reaktif terhadap perubahan tab/storage (login dari tab lain).
-  window.addEventListener("storage", (e) => {
-    if (e.key === STORAGE_KEY) callback();
-  });
+  window.addEventListener("storage", onStorage);
   return () => {
     window.removeEventListener(CHANGE_EVENT, callback);
-    window.removeEventListener("storage", callback);
+    window.removeEventListener("storage", onStorage);
   };
 }
 

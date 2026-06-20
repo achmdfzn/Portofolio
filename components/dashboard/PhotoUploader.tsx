@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { useReducedMotion, motion, AnimatePresence } from "framer-motion";
 import { useProfilePhoto } from "@/hooks/useProfilePhoto";
@@ -34,6 +34,18 @@ export function PhotoUploader() {
   const { photo, setPhoto } = useProfilePhoto();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const successRef = useRef<HTMLParagraphElement>(null);
+  // Simpan id timeout supaya bisa di-clear saat unmount (hindari setState di
+  // komponen yang sudah unmount → React warning).
+  const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cleanup semua timer saat komponen unmount.
+  useEffect(() => {
+    return () => {
+      if (focusTimerRef.current) clearTimeout(focusTimerRef.current);
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    };
+  }, []);
 
   /*
    * previewUrl disimpan lokal supaya saat user upload (optimistik), preview
@@ -124,9 +136,9 @@ export function PhotoUploader() {
       setPhoto(dataUrl);
       setPreviewUrl(dataUrl);
       setStatus("success");
-      setTimeout(() => successRef.current?.focus(), 50);
+      focusTimerRef.current = setTimeout(() => successRef.current?.focus(), 50);
       // Reset status setelah beberapa detik.
-      setTimeout(() => setStatus("idle"), 3000);
+      resetTimerRef.current = setTimeout(() => setStatus("idle"), 3000);
     } catch {
       setValidationError({ message: "Gagal memproses gambar. Coba lagi." });
       setStatus("error");

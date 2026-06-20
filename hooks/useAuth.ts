@@ -7,6 +7,7 @@ import {
   subscribeAuth,
   DEMO_CREDENTIALS,
 } from "@/lib/auth-mock";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 /**
  * useAuth — akses sesi + action login/logout, reactive & hydration-safe.
@@ -30,23 +31,13 @@ function getServerSession(): AuthSession | null {
   return null;
 }
 
-/** Flag mounted via useSyncExternalStore (menghindari setState-dalam-effect). */
-const noopSubscribe = () => () => {};
-function useIsMountedClient(): boolean {
-  return useSyncExternalStore(
-    noopSubscribe,
-    () => true, // client snapshot
-    () => false // server snapshot
-  );
-}
-
 export function useAuth() {
   const session = useSyncExternalStore(
     subscribeAuth,
     () => mockAuthClient.getSession(),
     getServerSession
   );
-  const mounted = useIsMountedClient();
+  const mounted = useIsMounted();
 
   const status: AuthStatus = session ? "authenticated" : "unauthenticated";
 

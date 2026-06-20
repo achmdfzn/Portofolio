@@ -7,6 +7,7 @@ import { PhotoUploader } from "@/components/dashboard/PhotoUploader";
 import { ProjectList } from "@/components/dashboard/ProjectList";
 import { useProfilePhoto } from "@/hooks/useProfilePhoto";
 import { useAuth } from "@/hooks/useAuth";
+import { useTheme } from "@/hooks/useTheme";
 import { PROJECTS } from "@/lib/projects";
 
 /**
@@ -82,11 +83,10 @@ export default function DashboardPage() {
   const prefersReducedMotion = useReducedMotion() ?? false;
   const { hasCustomPhoto } = useProfilePhoto();
   const { user } = useAuth();
-
-  const isDark =
-    typeof document !== "undefined"
-      ? document.documentElement.classList.contains("dark")
-      : false;
+  // Sebelumnya isDark dibaca langsung dari DOM (non-reactive) → StatCard "Tema
+  // Aktif" tidak update saat toggle. Sekarang subscribe via useTheme.
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
     <main

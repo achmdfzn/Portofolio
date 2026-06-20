@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -48,6 +48,15 @@ export function AuthForm({ next }: { next: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [globalError, setGlobalError] = useState<string | null>(null);
   const successRef = useRef<HTMLParagraphElement>(null);
+  // Simpan id timeout supaya bisa di-clear saat unmount (hindari router.push
+  // / setState di komponen yang sudah unmount → React warning).
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach(clearTimeout);
+    };
+  }, []);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -86,8 +95,8 @@ export function AuthForm({ next }: { next: string }) {
     // Sukses: beri jeda singkat untuk tampilan konfirmasi, lalu redirect.
     setStatus("success");
     // Pindahkan fokus ke pengumuman sukses (a11y).
-    setTimeout(() => successRef.current?.focus(), 50);
-    setTimeout(() => router.push(next), 700);
+    timersRef.current.push(setTimeout(() => successRef.current?.focus(), 50));
+    timersRef.current.push(setTimeout(() => router.push(next), 700));
   }
 
   /** Isi otomatis demo credentials (klik hint). */

@@ -14,9 +14,9 @@ const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 function getGreeting(): string {
   const h = new Date().getHours();
-  if (h < 12) return "Selamat pagi";
-  if (h < 17) return "Selamat siang";
-  if (h < 21) return "Selamat malam";
+  if (h < 11) return "Selamat pagi";
+  if (h < 15) return "Selamat siang";
+  if (h < 19) return "Selamat sore";
   return "Selamat malam";
 }
 
