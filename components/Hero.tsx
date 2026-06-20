@@ -1,51 +1,40 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { SectionDivider } from "@/components/SectionDivider";
+import { useProfilePhoto } from "@/hooks/useProfilePhoto";
 
 /**
- * Hero (DESIGN.md §2) — Redesigned: Split + Multi-Panel Doodle Grid.
+ * Hero (DESIGN.md §2) — Redesign: Split + Polaroid Foto Profil.
  *
  * Layout split dua kolom (desktop):
- *  - Kiri: headline besar bold + wavy underline + tagline + subtitle.
- *  - Kanan: grid 2×2 panel doodle SVG, tiap panel warna highlighter
- *    berbeda, rotasi beda, masuk staggered.
+ *  - Kiri: greeting + headline + wavy underline + tagline + subtitle +
+ *    dua CTA (Lihat Dashboard ↗ / Lihat Project).
+ *  - Kanan: polaroid foto profil miring, dengan selotip doodle di sudut.
+ *    - Bila user sudah upload foto (lihat dashboard), tampilkan foto itu.
+ *    - Bila belum, tampilkan doodle avatar AF sebagai default.
+ *    - Idle-float halus supaya terasa hidup.
  *
- * Mobile: stack vertikal — teks di atas, grid di bawah.
- * Reduced motion: semua animasi dimatikan, elemen langsung tampil.
- *
- * Vibe: gabungan Kokahu (split, bold type) + Ninja Strike
- * (colorful panels, playful stagger).
+ * Mobile: stack vertikal — teks di atas, polaroid di bawah.
+ * Reduced motion: semua animasi dimatikan.
  */
 
-/* ── Panel config ── */
-interface PanelConfig {
-  id: string;
-  bg: string;           // CSS custom property value untuk --panel-bg
-  rotate: number;        // derajat rotasi
-  label: string;        // aria-label
-}
-
-const PANELS: PanelConfig[] = [
-  { id: "avatar",   bg: "var(--color-highlighter-yellow)", rotate: -2, label: "Doodle avatar inisial AF" },
-  { id: "code",     bg: "var(--color-highlighter-blue)",   rotate: 3,  label: "Doodle code bracket" },
-  { id: "lightbulb", bg: "var(--color-highlighter-pink)",   rotate: 2,  label: "Doodle bohlam ide" },
-  { id: "terminal", bg: "var(--color-highlighter-blue)",   rotate: -3, label: "Doodle terminal prompt" },
-];
-
-/* ── Entrance easing ── */
+/* ── Entrance easing (signature repo-wide) ── */
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion() ?? false;
+  const { photo, mounted } = useProfilePhoto();
 
   return (
     <section
       aria-labelledby="hero-heading"
-      className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 px-6 py-16 sm:py-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-32"
+      className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-12 px-6 py-16 sm:py-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-32"
     >
       {/* ════════════════════════════════════════════════════════════════
-       *  KOLAM KIRI: Copywriting
+       *  KOLAM KIRI: Copywriting + CTA
        * ════════════════════════════════════════════════════════════════ */}
       <div className="flex flex-col items-start lg:col-span-1">
         {/* Greeting */}
@@ -117,7 +106,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: prefersReducedMotion ? 0 : 0.6,
-            delay: prefersReducedMotion ? 0 : 1.2,
+            delay: prefersReducedMotion ? 0 : 1.1,
             ease: EASE_OUT_EXPO,
           }}
           className="mt-5 max-w-lg font-body text-lg leading-relaxed text-ink-soft sm:text-xl"
@@ -127,31 +116,47 @@ export function Hero() {
           <span className="highlight-blue">Next.js</span>. Bebas dari desain
           membosankan, fokus pada performa dan estetika.
         </motion.p>
+
+        {/* CTA pair */}
+        <motion.div
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: prefersReducedMotion ? 0 : 0.6,
+            delay: prefersReducedMotion ? 0 : 1.3,
+            ease: EASE_OUT_EXPO,
+          }}
+          className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
+        >
+          {/* Primary: dashboard (hidden route) */}
+          <Link
+            href="/dashboard"
+            className="rough-border group inline-flex items-center justify-center gap-2 border-2 border-ink bg-highlighter-yellow px-7 py-3 font-display text-base font-bold text-ink shadow-[4px_4px_0_0_var(--color-ink)] transition-shadow hover:shadow-[6px_6px_0_0_var(--color-ink)] sm:text-lg"
+          >
+            Lihat Dashboard
+            <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">
+              ↗
+            </span>
+          </Link>
+          {/* Secondary: anchor project */}
+          <Link
+            href="#projects"
+            className="rough-border-alt inline-flex items-center justify-center gap-2 border-2 border-ink bg-paper px-7 py-3 font-display text-base font-bold text-ink shadow-[4px_4px_0_0_var(--color-ink)] transition-shadow hover:shadow-[6px_6px_0_0_var(--color-ink)] sm:text-lg"
+          >
+            Lihat Project
+          </Link>
+        </motion.div>
       </div>
 
       {/* ════════════════════════════════════════════════════════════════
-       *  KOLAM KANAN: Grid 2×2 Doodle Panel
+       *  KOLAM KANAN: Polaroid Foto Profil
        * ════════════════════════════════════════════════════════════════ */}
-      <div
-        className="grid grid-cols-2 gap-4 sm:gap-5 lg:col-span-1"
-        aria-label="Panel-panel doodle keterampilan"
-      >
-        {PANELS.map((panel, i) => (
-          <DoodlePanel
-            key={panel.id}
-            bg={panel.bg}
-            rotate={panel.rotate}
-            delay={prefersReducedMotion ? 0 : 0.3 + i * 0.15}
-            floatIndex={i}
-            prefersReducedMotion={prefersReducedMotion}
-            ariaLabel={panel.label}
-          >
-            {panel.id === "avatar" && <DoodleAvatar />}
-            {panel.id === "code" && <DoodleCode />}
-            {panel.id === "lightbulb" && <DoodleLightbulb />}
-            {panel.id === "terminal" && <DoodleTerminal />}
-          </DoodlePanel>
-        ))}
+      <div className="flex justify-center lg:col-span-1">
+        <ProfilePolaroid
+          photo={photo}
+          mounted={mounted}
+          prefersReducedMotion={prefersReducedMotion}
+        />
       </div>
 
       {/* ── Scroll indicator ── */}
@@ -193,197 +198,153 @@ export function Hero() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
- *  DoodlePanel — kartu panel berwarna highlighter
+ *  ProfilePolaroid — bingkai polaroid kasar + selotip doodle.
+ *  Foto diganti via useProfilePhoto (di-set dari dashboard).
+ *  Default: doodle avatar AF (jika belum upload).
  * ═══════════════════════════════════════════════════════════════════════ */
 
-interface DoodlePanelProps {
-  children: React.ReactNode;
-  bg: string;
-  rotate: number;
-  delay: number;
-  /** Index panel (0–3) — digunakan untuk menghitung offset animasi floating idle. */
-  floatIndex: number;
+interface ProfilePolaroidProps {
+  photo: string | null;
+  mounted: boolean;
   prefersReducedMotion: boolean;
-  ariaLabel: string;
 }
 
-function DoodlePanel({
-  children,
-  bg,
-  rotate,
-  delay,
-  floatIndex,
+function ProfilePolaroid({
+  photo,
+  mounted,
   prefersReducedMotion,
-  ariaLabel,
-}: DoodlePanelProps) {
+}: ProfilePolaroidProps) {
   return (
     <motion.div
-      role="img"
-      aria-label={ariaLabel}
       initial={
-        prefersReducedMotion
-          ? false
-          : { opacity: 0, y: 24, rotate: rotate * 2 }
+        prefersReducedMotion ? false : { opacity: 0, y: 24, rotate: -8 }
       }
       animate={
         prefersReducedMotion
-          ? { opacity: 1, y: 0, rotate }
-          : {
-              opacity: 1,
-              y: [0, -5, 0],
-              rotate,
-            }
+          ? { opacity: 1, y: 0, rotate: -3 }
+          : { opacity: 1, y: [0, -6, 0], rotate: -3 }
       }
       transition={
         prefersReducedMotion
           ? { duration: 0 }
           : {
-              opacity: { duration: 0.6, delay, ease: EASE_OUT_EXPO },
-              rotate: { duration: 0.6, delay, ease: EASE_OUT_EXPO },
-              // Floating idle: mulai setelah entrance selesai, repeat infinity.
-              // Delay berbeda per panel supaya gerakan tidak sinkron (lebih organik).
+              opacity: { duration: 0.7, delay: 0.4, ease: EASE_OUT_EXPO },
+              rotate: { duration: 0.7, delay: 0.4, ease: EASE_OUT_EXPO },
               y: {
-                duration: 3.5,
-                delay: delay + 0.6,
+                duration: 4,
+                delay: 1.1,
                 repeat: Infinity,
                 repeatType: "reverse",
                 ease: "easeInOut",
               },
             }
       }
-      whileHover={
-        prefersReducedMotion
-          ? undefined
-          : { scale: 1.06, rotate: 0 }
-      }
-      className="doodle-panel rough-border aspect-square flex items-center justify-center overflow-hidden p-4 sm:p-6"
-      style={{ "--panel-bg": bg } as React.CSSProperties}
+      whileHover={prefersReducedMotion ? undefined : { rotate: 0, scale: 1.02 }}
+      className="relative"
     >
-      <div className="h-full w-full">{children}</div>
+      {/* Selotip doodle di sudut atas ( dekorasi sketchbook ) */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-3 left-1/2 z-10 h-7 w-24 -translate-x-1/2 rotate-[-2deg] bg-highlighter-yellow/70 mix-blend-multiply"
+        style={{
+          clipPath:
+            "polygon(2% 10%, 98% 0%, 96% 90%, 4% 100%)",
+        }}
+      />
+
+      {/* Bingkai polaroid (recipe Polaroid.tsx) */}
+      <div className="rough-border-soft relative w-64 border-2 border-ink bg-paper-soft p-3 pb-14 shadow-[8px_8px_0_0_var(--color-ink)] sm:w-72 sm:p-4 sm:pb-16 lg:w-80">
+        {/* Area foto: rasio 1:1 */}
+        <div className="rough-border-soft relative aspect-square w-full overflow-hidden border border-ink/20 bg-paper-dark">
+          {/*
+           * Render placeholder doodle selama SSR / sebelum mount untuk
+           * hindari hydration mismatch (photo null di server). Setelah
+           * mount, swap ke foto asli bila ada.
+           */}
+          {!mounted || !photo ? (
+            <DoodleAvatar />
+          ) : (
+            <Image
+              src={photo}
+              alt="Foto profil Achmad Fauzan"
+              fill
+              sizes="(min-width: 1024px) 20rem, (min-width: 640px) 18rem, 16rem"
+              className="object-cover"
+              priority
+            />
+          )}
+        </div>
+
+        {/* Caption tangan */}
+        <p className="mt-3 text-center font-handwritten text-lg text-ink-soft sm:text-xl">
+          ~ Achmad Fauzan ~
+        </p>
+      </div>
+
+      {/* Selotip kecil di sudut bawah kanan */}
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-2 -right-3 z-10 h-6 w-16 rotate-[6deg] bg-highlighter-pink/60 mix-blend-multiply"
+        style={{
+          clipPath: "polygon(4% 12%, 100% 0%, 92% 88%, 0% 96%)",
+        }}
+      />
     </motion.div>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
- *  Doodle SVG Components (hand-drawn style)
+ *  DoodleAvatar — default foto profil (avatar doodle AF)
+ *  Dipakai bila user belum upload foto.
  * ═══════════════════════════════════════════════════════════════════════ */
 
-/** Lingkaran tangan + inisial AF */
 function DoodleAvatar() {
   return (
-    <svg viewBox="0 0 120 120" className="h-full w-full" aria-hidden="true">
-      {/* Lingkaran luar — solid */}
-      <circle
-        cx="60" cy="60" r="48"
-        fill="none" stroke="currentColor" strokeWidth="3"
-      />
-      {/* Lingkaran dalam — dashed, sedikit meleset */}
-      <circle
-        cx="61" cy="59" r="48"
-        fill="none" stroke="currentColor" strokeWidth="1.5"
-        strokeDasharray="4 6" opacity="0.5"
-      />
-      {/* Highlighter kuning di belakang inisial */}
-      <rect
-        x="30" y="40" width="60" height="36"
-        rx="4" fill="var(--color-highlighter-yellow)" opacity="0.5"
-      />
-      {/* Inisial AF */}
-      <text
-        x="60" y="68"
-        fontFamily="var(--font-kalam), 'Comic Sans MS', cursive"
-        fontSize="34" fontWeight="bold" fill="currentColor"
-        textAnchor="middle"
-      >
-        AF
-      </text>
-    </svg>
-  );
-}
-
-/** Tag HTML/XML bergaya tangan */
-function DoodleCode() {
-  return (
-    <svg viewBox="0 0 120 120" className="h-full w-full" aria-hidden="true">
-      {/* Bracket buka < */}
-      <path
-        d="M55 30 L30 60 L55 90"
-        fill="none" stroke="currentColor" strokeWidth="4"
-        strokeLinecap="round" strokeLinejoin="round"
-      />
-      {/* Garis slash / */}
-      <line
-        x1="42" y1="95" x2="78" y2="25"
-        stroke="currentColor" strokeWidth="3.5"
-        strokeLinecap="round"
-      />
-      {/* Bracket tutup > */}
-      <path
-        d="M65 30 L90 60 L65 90"
-        fill="none" stroke="currentColor" strokeWidth="4"
-        strokeLinecap="round" strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-/** Bohlam tangan + garis cahaya */
-function DoodleLightbulb() {
-  return (
-    <svg viewBox="0 0 120 120" className="h-full w-full" aria-hidden="true">
-      {/* Garis cahaya radiating */}
-      <line x1="60" y1="12" x2="60" y2="24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="30" y1="25" x2="40" y2="33" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="90" y1="25" x2="80" y2="33" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="20" y1="52" x2="32" y2="52" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="100" y1="52" x2="88" y2="52" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      {/* Bohlam body */}
-      <path
-        d="M40 55 C 40 35, 80 35, 80 55 L75 78 L45 78 Z"
-        fill="none" stroke="currentColor" strokeWidth="3"
-        strokeLinecap="round" strokeLinejoin="round"
-      />
-      {/* Filamen */}
-      <path
-        d="M52 62 L60 48 L68 62"
-        fill="none" stroke="currentColor" strokeWidth="2"
-        strokeLinecap="round" strokeLinejoin="round"
-      />
-      {/* Base */}
-      <rect x="46" y="80" width="28" height="6" rx="2" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <rect x="48" y="88" width="24" height="5" rx="2" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <rect x="50" y="95" width="20" height="4" rx="2" fill="none" stroke="currentColor" strokeWidth="2.5" />
-    </svg>
-  );
-}
-
-/** Terminal prompt + garis command */
-function DoodleTerminal() {
-  return (
-    <svg viewBox="0 0 120 120" className="h-full w-full" aria-hidden="true">
-      {/* Terminal window */}
-      <rect
-        x="14" y="20" width="92" height="80" rx="6"
-        fill="none" stroke="currentColor" strokeWidth="2.5"
-      />
-      {/* Title bar dots */}
-      <circle cx="30" cy="32" r="3" fill="currentColor" opacity="0.7" />
-      <circle cx="40" cy="32" r="3" fill="currentColor" opacity="0.5" />
-      <circle cx="50" cy="32" r="3" fill="currentColor" opacity="0.3" />
-      {/* Separator line */}
-      <line x1="14" y1="42" x2="106" y2="42" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
-      {/* Prompt */}
-      <text
-        x="26" y="62"
-        fontFamily="var(--font-space-grotesk), monospace"
-        fontSize="14" fontWeight="600" fill="currentColor"
-      >
-        ~/af$ _
-      </text>
-      {/* Command line 1 */}
-      <line x1="26" y1="78" x2="90" y2="78" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
-      {/* Command line 2 */}
-      <line x1="26" y1="92" x2="72" y2="92" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.4" />
-    </svg>
+    <div className="flex h-full w-full items-center justify-center text-ink">
+      <svg viewBox="0 0 120 120" className="h-full w-full p-6" aria-hidden="true">
+        {/* Lingkaran luar — solid */}
+        <circle
+          cx="60"
+          cy="60"
+          r="48"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+        />
+        {/* Lingkaran dalam — dashed, sedikit meleset */}
+        <circle
+          cx="61"
+          cy="59"
+          r="48"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeDasharray="4 6"
+          opacity="0.5"
+        />
+        {/* Highlighter kuning di belakang inisial */}
+        <rect
+          x="30"
+          y="40"
+          width="60"
+          height="36"
+          rx="4"
+          fill="var(--color-highlighter-yellow)"
+          opacity="0.5"
+        />
+        {/* Inisial AF */}
+        <text
+          x="60"
+          y="68"
+          fontFamily="var(--font-kalam), 'Comic Sans MS', cursive"
+          fontSize="34"
+          fontWeight="bold"
+          fill="currentColor"
+          textAnchor="middle"
+        >
+          AF
+        </text>
+      </svg>
+    </div>
   );
 }
