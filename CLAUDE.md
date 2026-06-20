@@ -4,7 +4,7 @@
 - **Frontend**: Next.js (App Router), Tailwind CSS, Framer Motion / GSAP.
 - **Backend**: FastAPI (Python) - `https://github.com/fastapi/fastapi`.
 - **Database & Auth**: Supabase.
-- **Styling Method**: Brutalist/Doodle aesthetic (Rough.js or custom SVG masking, raw CSS shapes).
+- **Styling Method**: Brutalist/Doodle aesthetic (custom CSS shapes via utility class `.rough-border*` yang memakai `border-radius` organik, plus SVG scribbles). Lihat `app/globals.css`.
 
 ## 🚫 Anti-Slop Rules (Taste-Skill Alignment)
 1. **NO PLACEHOLDERS**: Do not use `[Insert Text Here]` or `// Add logic later`. Write complete, production-ready code.

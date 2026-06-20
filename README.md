@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portofolio — Achmad Fauzan
 
-## Getting Started
+Personal portfolio bergaya **hand-drawn / doodle aesthetic**. Bukan template SaaS
+generik — setiap sudut dirancang seperti sketchbook premium: border kasar tangan,
+accent highlighter, dan animasi yang "menggambar dirinya sendiri".
 
-First, run the development server:
+Dibangun **frontend-first**: seluruh halaman (marketing, login, dashboard) sudah
+berfungsi penuh secara lokal dengan mock auth berbentuk kontrak Supabase. Saat
+Supabase & FastAPI diaktifkan, cukup ganti implementasi auth tanpa menyentuh
+komponen/hook.
+
+> ⚠️ **Status**: Fase frontend-first. Backend FastAPI & Supabase belum
+> terhubung. Autentikasi saat ini adalah **mock** (lihat
+> [`lib/auth-mock.ts`](lib/auth-mock.ts)) — bukan autentikasi sungguhan.
+
+---
+
+## 🧱 Tech Stack
+
+| Lapisan      | Teknologi                                                 |
+| ------------ | --------------------------------------------------------- |
+| Framework    | [Next.js 16](https://nextjs.org) (App Router) + React 19  |
+| Styling      | Tailwind CSS v4                                           |
+| Animasi      | Framer Motion (magnetic hover, scroll reveal, pathLength) |
+| Validasi     | Zod                                                       |
+| Auth (mock)  | `lib/auth-mock.ts` — kontrak identik dengan target Supabase SSR |
+| Backend*     | FastAPI + Supabase (direncanakan, lihat [`CLAUDE.md`](CLAUDE.md)) |
+
+*Belum diintegrasikan pada fase ini.
+
+---
+
+## 🚀 Quick Start
+
+Prasyarat: Node.js 18.18+ (atau versi terbaru yang didukung Next 16) dan npm.
 
 ```bash
+# 1. Install dependency
+npm install
+
+# 2. Jalankan dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> Di Windows, jika dev server bermasalah (HMR/compile lambat), gunakan flag
+> webpack: `npm run dev:webpack`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Scripts
 
-## Learn More
+| Perintah            | Fungsi                                     |
+| ------------------- | ------------------------------------------ |
+| `npm run dev`       | Dev server (Turbopack)                     |
+| `npm run dev:webpack` | Dev server dengan bundler webpack (fallback Windows) |
+| `npm run build`     | Build produksi                             |
+| `npm run start`     | Jalankan hasil build                       |
+| `npm run lint`      | ESLint (`eslint-config-next`)              |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔐 Demo Login
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Halaman login tersembunyi di [`/auth`](http://localhost:3000/auth). Setelah login,
+route [`/dashboard`](http://localhost:3000/dashboard) terbuka.
 
-## Deploy on Vercel
+```
+Email    : admin@achmdfauzan.dev
+Password : portofolio2026
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Sesi berlaku 7 hari, disimpan di `localStorage` + cookie flag `af_auth=1` yang
+dibaca oleh [`proxy.ts`](proxy.ts) (konvensi middleware Next.js 16) untuk
+mengguard `/dashboard`. Lihat detail & catatan keamanan di
+[`lib/auth-mock.ts`](lib/auth-mock.ts).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📁 Struktur Project
+
+```
+app/
+  (marketing)/        # Halaman publik: /, /projects/...
+  (auth)/auth/        # Halaman login tersembunyi
+  (app)/dashboard/    # Area terlindungi (perlu login)
+  layout.tsx          # Root layout + script anti-FOUC tema
+  sitemap.ts / robots.ts / manifest.ts / opengraph-image.tsx
+components/
+  *.tsx               # Section marketing (Hero, About, Project, Skills, Contact, Footer)
+  dashboard/          # Widget dashboard (StatCard, PhotoUploader, dst.)
+hooks/                # useAuth, useTheme, useMediaQuery, useProfilePhoto, ...
+lib/
+  auth.ts             # Kontrak interface (source of truth perilaku auth)
+  auth-mock.ts        # Implementasi mock (akan diganti Supabase)
+  projects.ts / nav.ts
+proxy.ts              # Middleware Next 16 — guard /dashboard
+DESIGN.md             # Spec visual & UX (source of truth desain)
+CLAUDE.md             # Konvensi kode & tech stack
+AGENTS.md             # Peran & protokol AI agent
+```
+
+---
+
+## 🎨 Design System
+
+Source of truth desain ada di [`DESIGN.md`](DESIGN.md). Ringkasannya:
+
+- **Palet**: kertas off-white `#f8f9fa` + tinta charcoal `#1c1c1c`, accent
+  highlighter (kuning / biru / pink) sebagai sapuan kasar di belakang teks.
+- **Dark mode**: default mengikuti `prefers-color-scheme`, override disimpan di
+  `localStorage`. Anti-FOUC via script blocking di `<head>`.
+- **Tipografi**: heading handwritten/display serif, body sans-serif bersih.
+- **Motion**: tidak ada `transition-all` murahan. Kartu project "magnetis"
+  mengikuti kursor, elemen "tersketsa" saat masuk viewport. Semua animasi
+  menghormati `prefers-reduced-motion`.
+
+Konvensi kode (Server Component by default, `'use client'` hanya untuk yang
+interaktif) dijabarkan di [`CLAUDE.md`](CLAUDE.md).
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Integrasikan Supabase SSR (ganti `auth-mock.ts`, jaga kontrak `auth.ts`)
+- [ ] Sambungkan backend FastAPI (Pydantic models, modular routers)
+- [ ] Halaman detail project (case study) — lihat DESIGN.md §8
+- [ ] Test suite: Vitest/RTL (frontend) + Pytest/TestClient (backend)
+- [ ] Deploy: Next.js → Vercel, FastAPI → Railway/Render
+
+---
+
+## 📄 Lisensi
+
+Kode pribadi. Hubungi pemilik repo untuk penggunaan.
