@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Kalam, Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -108,10 +109,17 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${kalam.variable} ${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-      </head>
       <body className="min-h-full flex flex-col bg-paper text-ink">
+        {/*
+         * Anti-FOUC theme script. Pakai next/script (bukan <script> mentah)
+         * supaya React 19 tidak memproses tag ini di client reconciler
+         * (yang memicu warning "Encountered a script tag while rendering
+         * React component"). `beforeInteractive` di-inject ke SSR HTML
+         * awal dan dieksekusi synchronously sebelum React hydrate, jadi
+         * tema benar dari frame pertama tanpa flash. suppressHydrationWarning
+         * di <html> diperlukan karena class .dark ditambah script ini.
+         */}
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <a href="#main" className="skip-link">
           Langsung ke konten utama
         </a>

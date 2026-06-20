@@ -122,7 +122,9 @@ function ProjectCard({
             {/* Tech badges — dengan ikon di kiri setiap badge */}
             <ul className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
               {project.tech.map((tech) => (
-                <TechBadge key={tech} tech={tech} size="sm" />
+                <li key={tech} className="list-none">
+                  <TechBadge tech={tech} size="sm" />
+                </li>
               ))}
             </ul>
 

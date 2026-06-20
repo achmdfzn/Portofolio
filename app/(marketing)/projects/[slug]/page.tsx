@@ -124,7 +124,9 @@ export default async function ProjectDetailPage({
         </h2>
         <ul className="mt-6 flex flex-wrap gap-3">
           {project.tech.map((tech) => (
-            <TechBadge key={tech} tech={tech} size="md" />
+            <li key={tech} className="list-none">
+              <TechBadge tech={tech} size="md" />
+            </li>
           ))}
         </ul>
       </section>

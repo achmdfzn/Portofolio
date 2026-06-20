@@ -40,12 +40,20 @@ function renderTechIcon(tech: string, className: string) {
 export function TechBadge({ tech, size = "sm" }: TechBadgeProps) {
   const classes = SIZE_CLASSES[size];
 
+  /*
+   * Root element: <span>, bukan <li>. TechBadge dipakai di banyak tempat
+   * yang parent-nya bukan <ul> (mis. wrapper <div> di card project, marquee
+   * di Skills). Render <li> di sana → invalid HTML nesting → hydration
+   * error & "<li> cannot be a descendant of <li>" saat dipakai di dalam
+   * kartu project yang juga <li>. Pakai span + inline-flex tetap menjadi
+   * pill; semantic list-nya di-handle parent (lihat Project.tsx).
+   */
   return (
-    <li
+    <span
       className={`rough-border-soft tech-badge inline-flex items-center gap-1.5 border border-ink/30 bg-paper font-handwritten ${classes.wrapper}`}
     >
       {renderTechIcon(tech, classes.icon)}
       <span>{tech}</span>
-    </li>
+    </span>
   );
 }

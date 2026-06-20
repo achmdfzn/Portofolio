@@ -34,6 +34,22 @@ const CHANGE_EVENT = "authchange";
 const SESSION_TTL_DAYS = 7;
 
 /**
+ * Cache snapshot sesi untuk useSyncExternalStore.
+ *
+ * WAJIB: getSnapshot (yang dipakai useSyncExternalStore) harus return
+ * referensi yang stabil selama tidak ada perubahan nyata. Sebelumnya
+ * getSession() memanggil readStoredSession() yang selalu `JSON.parse`
+ * storage → menghasilkan object baru tiap panggilan → React melihat
+ * snapshot "berubah" tiap render → "Maximum update depth exceeded".
+ *
+ * cachedSession: undefined = belum dibaca, null = tidak ada sesi,
+ * object = sesi aktif. Di-invalidate (dijadikan undefined) saat sumber
+ * berubah (login/logout/storage event dari tab lain) lalu diisi ulang
+ * secara lazy oleh getSession().
+ */
+let cachedSession: AuthSession | null | undefined = undefined;
+
+/**
  * Demo credentials. Dipakai juga sebagai hint di halaman /auth.
  * Password di-hash saat startup (lihat DEMO_PASSWORD_HASH di bawah) —
  * plaintext HANYA ada sebagai konstanta string, tidak disandingkan
@@ -85,6 +101,10 @@ function clearAuthCookie(): void {
 
 /** Notifikasi komponen yang subscribe (via useSyncExternalStore di hook). */
 function notifyChange(): void {
+  // Invalidate cache SEBELUM emit event supaya getSnapshot berikutnya
+  // membaca sumber terbaru (localStorage). Tanpa ini, listener yang
+  // memanggil getSession() masih mendapat snapshot lama.
+  cachedSession = undefined;
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 
@@ -170,7 +190,13 @@ export const mockAuthClient: AuthClient = {
   },
 
   getSession(): AuthSession | null {
-    return readStoredSession();
+    // Stable snapshot untuk useSyncExternalStore. Baca dari cache bila
+    // sudah pernah dibaca; isi cache saat akses pertama. Cache di-invalidate
+    // oleh notifyChange() (login/logout) & listener storage (tab lain).
+    if (cachedSession === undefined) {
+      cachedSession = readStoredSession();
+    }
+    return cachedSession;
   },
 
   getUser(): AuthUser | null {
@@ -184,7 +210,12 @@ export function subscribeAuth(callback: () => void): () => void {
   // Sebelumnya cleanup memakai `callback` sebagai referensi storage listener
   // (anonymous fn) → listener tidak pernah lepas → memory leak.
   const onStorage = (e: StorageEvent) => {
-    if (e.key === STORAGE_KEY) callback();
+    if (e.key === STORAGE_KEY) {
+      // Tab lain mengubah sesi → invalidate cache lokal supaya snapshot
+      // berikutnya membaca nilai baru dari storage.
+      cachedSession = undefined;
+      callback();
+    }
   };
   window.addEventListener(CHANGE_EVENT, callback);
   // Reaktif terhadap perubahan tab/storage (login dari tab lain).
