@@ -10,6 +10,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        disallow: ["/auth", "/dashboard"],
       },
     ],
     sitemap: "https://achmadfauzan.dev/sitemap.xml",

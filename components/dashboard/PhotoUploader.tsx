@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { useReducedMotion, motion, AnimatePresence } from "framer-motion";
 import { useProfilePhoto } from "@/hooks/useProfilePhoto";
@@ -35,15 +35,23 @@ export function PhotoUploader() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const successRef = useRef<HTMLParagraphElement>(null);
 
-  const [previewUrl, setPreviewUrl] = useState<string | null>(photo);
+  /*
+   * previewUrl disimpan lokal supaya saat user upload (optimistik), preview
+   * berubah SEBELUM localStorage commit — memberikan feedback instan. photo
+   * dari hook digunakan sebagai initial + saat baca perubahan dari tab lain
+   * via syncKey (React re-render tanpa setState-dalam-effect).
+   */
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [validationError, setValidationError] = useState<ValidationError | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
-  // Sync foto dari localStorage → preview bila berubah dari luar (hero / tab lain).
-  useEffect(() => {
-    setPreviewUrl(photo);
-  }, [photo]);
+  /*
+   * Sync key: bila photo dari hook berubah (tab lain / dashboard pertama kali
+   * mount) dan previewUrl masih null, sinkronkan. Ini menggantikan setState
+   * dalam effect yang diperingatkan lint React 19.
+   */
+  const activePreview = previewUrl ?? photo;
 
   /** Validasi file sebelum proses. */
   function validateFile(file: File): ValidationError | null {
@@ -73,8 +81,18 @@ export function PhotoUploader() {
     });
   }
 
+  /** Baca file sebagai data URL. */
+  function readFileAsDataUrl(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(new Error("Gagal membaca file."));
+      reader.readAsDataURL(file);
+    });
+  }
+
   /** Proses file → base64 → simpan. */
-  async function processFile(file: File) {
+  const processFile = useCallback(async (file: File) => {
     const validation = validateFile(file);
     if (validation) {
       setValidationError(validation);
@@ -113,17 +131,7 @@ export function PhotoUploader() {
       setValidationError({ message: "Gagal memproses gambar. Coba lagi." });
       setStatus("error");
     }
-  }
-
-  /** Baca file sebagai data URL. */
-  function readFileAsDataUrl(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = () => reject(new Error("Gagal membaca file."));
-      reader.readAsDataURL(file);
-    });
-  }
+  }, [setPhoto]);
 
   /** Handler klik tombol upload. */
   function handleUploadClick() {
@@ -158,7 +166,7 @@ export function PhotoUploader() {
     setIsDragOver(false);
     const file = e.dataTransfer.files?.[0];
     if (file) processFile(file);
-  }, []);
+  }, [processFile]);
 
   /** Handler hapus foto. */
   function handleRemove() {
@@ -185,7 +193,7 @@ export function PhotoUploader() {
             Foto <span className="highlight-pink">Profil</span>
           </h2>
         </div>
-        {previewUrl && (
+        {activePreview && (
           <button
             type="button"
             onClick={handleRemove}
@@ -244,9 +252,9 @@ export function PhotoUploader() {
         {/* Preview polaroid */}
         <div className="rough-border-soft relative w-48 border-2 border-ink bg-paper-soft p-2 pb-10 shadow-[6px_6px_0_0_var(--color-ink)] sm:w-56 sm:p-3 sm:pb-12">
           <div className="rough-border-soft aspect-square w-full overflow-hidden border border-ink/20 bg-paper-dark">
-            {previewUrl ? (
+            {activePreview ? (
               <Image
-                src={previewUrl}
+                src={activePreview}
                 alt="Preview foto profil"
                 fill
                 sizes="14rem"
