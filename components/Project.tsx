@@ -8,6 +8,7 @@ import {
   useReducedMotion,
   useSpring,
 } from "framer-motion";
+import { ROUGH_BORDER_VARIANTS } from "@/lib/motion";
 import { PROJECTS, type Project } from "@/lib/projects";
 import { SectionDivider } from "@/components/SectionDivider";
 import { TechBadge } from "@/components/TechBadge";
@@ -26,11 +27,6 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
  */
 
 /* Varian rough-border per card — bergantian agar tidak identik. */
-const CARD_BORDER_CLASSES = [
-  "rough-border",
-  "rough-border-alt",
-  "rough-border-soft",
-] as const;
 
 export function ProjectSection() {
   const prefersReducedMotion = useReducedMotion() ?? false;
@@ -86,7 +82,7 @@ function ProjectCard({
   index: number;
   prefersReducedMotion: boolean;
 }) {
-  const borderClass = CARD_BORDER_CLASSES[index % CARD_BORDER_CLASSES.length];
+  const borderClass = ROUGH_BORDER_VARIANTS[index % ROUGH_BORDER_VARIANTS.length];
 
   return (
     <motion.div

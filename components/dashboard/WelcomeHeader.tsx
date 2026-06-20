@@ -2,6 +2,7 @@
 
 import { useReducedMotion, motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
+import { EASE_OUT_EXPO } from "@/lib/motion";
 
 /**
  * WelcomeHeader — sapaan personal di dashboard.
@@ -9,8 +10,6 @@ import { useAuth } from "@/hooks/useAuth";
  * Menampilkan nama user (dari sesi), waktu lokal singkat, dan tagline
  * motivasi bergaya tangan.
  */
-
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 function getGreeting(): string {
   const h = new Date().getHours();

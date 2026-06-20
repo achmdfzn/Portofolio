@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
+import { EASE_OUT_EXPO } from "@/lib/motion";
 
 /**
  * AuthForm — form login untuk /auth (DESIGN.md vibe doodle).
@@ -32,8 +33,6 @@ const authSchema = z.object({
 type AuthFormData = { email: string; password: string };
 type FormErrors = Partial<Record<keyof AuthFormData, string>>;
 type Status = "idle" | "submitting" | "error" | "success";
-
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function AuthForm({ next }: { next: string }) {
   const prefersReducedMotion = useReducedMotion() ?? false;

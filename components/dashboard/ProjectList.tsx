@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useReducedMotion, motion } from "framer-motion";
 import { PROJECTS } from "@/lib/projects";
+import { EASE_OUT_EXPO, ROUGH_BORDER_VARIANTS } from "@/lib/motion";
 import { TechBadge } from "@/components/TechBadge";
 
 /**
@@ -13,14 +14,6 @@ import { TechBadge } from "@/components/TechBadge";
  * detail di portofolio. Mini-CMS vibe tapi read-only dulu — cukup memberikan
  * gambaran lengkap project yang ada.
  */
-
-const BORDER_CLASSES = [
-  "rough-border",
-  "rough-border-alt",
-  "rough-border-soft",
-] as const;
-
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function ProjectList() {
   const prefersReducedMotion = useReducedMotion() ?? false;
@@ -46,7 +39,7 @@ export function ProjectList() {
       {/* List */}
       <ul className="mt-6 flex flex-col gap-4">
         {PROJECTS.map((project, i) => {
-          const borderClass = BORDER_CLASSES[i % BORDER_CLASSES.length];
+          const borderClass = ROUGH_BORDER_VARIANTS[i % ROUGH_BORDER_VARIANTS.length];
           return (
             <motion.li
               key={project.slug}

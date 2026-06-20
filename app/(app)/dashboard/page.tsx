@@ -9,6 +9,7 @@ import { useProfilePhoto } from "@/hooks/useProfilePhoto";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
 import { PROJECTS } from "@/lib/projects";
+import { EASE_OUT_EXPO } from "@/lib/motion";
 
 /**
  * Halaman Dashboard — compose semua widget admin.
@@ -23,8 +24,6 @@ import { PROJECTS } from "@/lib/projects";
  *  3. PhotoUploader — upload foto profil (sinkron ke Hero)
  *  4. ProjectList — daftar project read-only
  */
-
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 /* ── Ikon SVG inline untuk stat cards ── */
 

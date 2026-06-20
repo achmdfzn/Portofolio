@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { SectionDivider } from "@/components/SectionDivider";
 import { useProfilePhoto } from "@/hooks/useProfilePhoto";
+import { EASE_OUT_EXPO } from "@/lib/motion";
 
 /**
  * Hero (DESIGN.md §2) — Redesign: Split + Polaroid Foto Profil.
@@ -20,9 +21,6 @@ import { useProfilePhoto } from "@/hooks/useProfilePhoto";
  * Mobile: stack vertikal — teks di atas, polaroid di bawah.
  * Reduced motion: semua animasi dimatikan.
  */
-
-/* ── Entrance easing (signature repo-wide) ── */
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion() ?? false;

@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { useReducedMotion, motion, AnimatePresence } from "framer-motion";
 import { useProfilePhoto } from "@/hooks/useProfilePhoto";
+import { EASE_OUT_EXPO } from "@/lib/motion";
 
 /**
  * PhotoUploader — manager foto profil dashboard.
@@ -20,8 +21,6 @@ import { useProfilePhoto } from "@/hooks/useProfilePhoto";
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_SIZE_BYTES = 2 * 1024 * 1024; // 2 MB
 const MIN_DIMENSION = 200;
-
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 type UploadStatus = "idle" | "dragging" | "preview" | "saving" | "success" | "error";
 

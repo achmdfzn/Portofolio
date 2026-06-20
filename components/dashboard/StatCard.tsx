@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE_OUT_EXPO, ROUGH_BORDER_VARIANTS } from "@/lib/motion";
 
 /**
  * StatCard — kartu statistik bergaya doodle untuk dashboard.
@@ -10,14 +11,6 @@ import { motion, useReducedMotion } from "framer-motion";
  * anti-slop (DESIGN.md §Motion). Card menerima ikon SVG, angka,
  * label, dan warna highlighter sebagai prop.
  */
-
-const BORDER_CLASSES = [
-  "rough-border",
-  "rough-border-alt",
-  "rough-border-soft",
-] as const;
-
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 interface StatCardProps {
   index: number;
@@ -36,7 +29,7 @@ export function StatCard({
   accent = "var(--color-highlighter-yellow)",
 }: StatCardProps) {
   const prefersReducedMotion = useReducedMotion() ?? false;
-  const borderClass = BORDER_CLASSES[index % BORDER_CLASSES.length];
+  const borderClass = ROUGH_BORDER_VARIANTS[index % ROUGH_BORDER_VARIANTS.length];
 
   return (
     <motion.div
