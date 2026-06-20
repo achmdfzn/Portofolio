@@ -34,36 +34,46 @@ export function PhotoUploader() {
   const { photo, setPhoto } = useProfilePhoto();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const successRef = useRef<HTMLParagraphElement>(null);
-  // Simpan id timeout supaya bisa di-clear saat unmount (hindari setState di
-  // komponen yang sudah unmount → React warning).
-  const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Daftar timer aktif (mutasi in-place via .splice/.push supaya cleanup
+  // yang menangkap referensi array ini tetap melihat isinya terbaru).
+  // Saat unmount, semua dihentikan → tidak ada setState pada komponen yang
+  // sudah lepas.
+  const timersRef = useRef<Array<ReturnType<typeof setTimeout>>>([]);
+  // Penanda urutan upload: bila upload baru dimulai saat yang lama masih
+  // jalan, callback lama diabaikan (race condition B2).
+  const uploadSeqRef = useRef(0);
 
-  // Cleanup semua timer saat komponen unmount.
+  /** Clear semua timer pending, lalu set timer baru (B1: no overwrite leak). */
+  const setStableTimer = useCallback(
+    (fn: () => void, delay: number): void => {
+      timersRef.current.splice(0).forEach((id) => clearTimeout(id));
+      const id = setTimeout(fn, delay);
+      timersRef.current.push(id);
+    },
+    []
+  );
+
+  // Cleanup semua timer saat komponen unmount. Karena timersRef.current
+  // di-mutasi in-place (bukan reassign), referensi array yang ditangkap di
+  // sini tetap valid.
   useEffect(() => {
+    const ids = timersRef.current;
     return () => {
-      if (focusTimerRef.current) clearTimeout(focusTimerRef.current);
-      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+      ids.forEach((id) => clearTimeout(id));
     };
   }, []);
 
   /*
-   * previewUrl disimpan lokal supaya saat user upload (optimistik), preview
-   * berubah SEBELUM localStorage commit — memberikan feedback instan. photo
-   * dari hook digunakan sebagai initial + saat baca perubahan dari tab lain
-   * via syncKey (React re-render tanpa setState-dalam-effect).
+   * Single source of truth foto = `photo` dari useProfilePhoto. Hook ini
+   * sudah reaktif (dispatch CustomEvent) sehingga preview polaroid &
+   * Hero di beranda update serentak, termasuk perubahan dari tab lain
+   * (storage event). State lokal `previewUrl` yang lama dihapus — itu
+   * menumpuk di atas `photo` dan tidak pernah re-sync dari tab lain
+   * (zombie state + JSDoc yang menyesatkan).
    */
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [validationError, setValidationError] = useState<ValidationError | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
-
-  /*
-   * Sync key: bila photo dari hook berubah (tab lain / dashboard pertama kali
-   * mount) dan previewUrl masih null, sinkronkan. Ini menggantikan setState
-   * dalam effect yang diperingatkan lint React 19.
-   */
-  const activePreview = previewUrl ?? photo;
 
   /** Validasi file sebelum proses. */
   function validateFile(file: File): ValidationError | null {
@@ -78,19 +88,14 @@ export function PhotoUploader() {
     return null;
   }
 
-  /** Validasi dimensi gambar setelah load. */
-  function validateDimensions(
-    img: HTMLImageElement
-  ): Promise<ValidationError | null> {
-    return new Promise((resolve) => {
-      if (img.naturalWidth >= MIN_DIMENSION && img.naturalHeight >= MIN_DIMENSION) {
-        resolve(null);
-      } else {
-        resolve({
-          message: `Ukuran ${img.naturalWidth}×${img.naturalHeight}px terlalu kecil. Minimal ${MIN_DIMENSION}×${MIN_DIMENSION}.`,
-        });
-      }
-    });
+  /** Validasi dimensi gambar (sinkron — hanya cek naturalWidth/Height). */
+  function validateDimensions(img: HTMLImageElement): ValidationError | null {
+    if (img.naturalWidth >= MIN_DIMENSION && img.naturalHeight >= MIN_DIMENSION) {
+      return null;
+    }
+    return {
+      message: `Ukuran ${img.naturalWidth}×${img.naturalHeight}px terlalu kecil. Minimal ${MIN_DIMENSION}×${MIN_DIMENSION}.`,
+    };
   }
 
   /** Baca file sebagai data URL. */
@@ -115,6 +120,10 @@ export function PhotoUploader() {
     setValidationError(null);
     setStatus("saving");
 
+    // Race guard (B2): bila upload lain dimulai sebelum ini selesai,
+    // seq ini akan kedaluwarsa → hasil diabaikan, tidak menimpa state baru.
+    const seq = ++uploadSeqRef.current;
+
     try {
       const dataUrl = await readFileAsDataUrl(file);
       // Validasi dimensi via Image object.
@@ -125,25 +134,32 @@ export function PhotoUploader() {
         img.src = dataUrl;
       });
 
-      const dimError = await validateDimensions(img);
+      const dimError = validateDimensions(img);
       if (dimError) {
+        if (seq !== uploadSeqRef.current) return; // kedaluwarsa
         setValidationError(dimError);
         setStatus("error");
         return;
       }
 
-      // Simpan → localStorage → sync ke Hero.
+      // Upload lain menggantikan → jangan commit hasil lama.
+      if (seq !== uploadSeqRef.current) return;
+
+      // Simpan → localStorage → hook dispatch event → Hero & preview update.
       setPhoto(dataUrl);
-      setPreviewUrl(dataUrl);
       setStatus("success");
-      focusTimerRef.current = setTimeout(() => successRef.current?.focus(), 50);
+      setStableTimer(() => successRef.current?.focus(), 50);
       // Reset status setelah beberapa detik.
-      resetTimerRef.current = setTimeout(() => setStatus("idle"), 3000);
+      setStableTimer(() => {
+        // Hanya reset bila masih upload ini yang terakhir (tidak disela).
+        if (seq === uploadSeqRef.current) setStatus("idle");
+      }, 3000);
     } catch {
+      if (seq !== uploadSeqRef.current) return;
       setValidationError({ message: "Gagal memproses gambar. Coba lagi." });
       setStatus("error");
     }
-  }, [setPhoto]);
+  }, [setPhoto, setStableTimer]);
 
   /** Handler klik tombol upload. */
   function handleUploadClick() {
@@ -158,32 +174,40 @@ export function PhotoUploader() {
     e.target.value = "";
   }
 
-  /** Handler drag & drop. */
+  /** Handler drag & drop. Jangan ganggu state saat sedang saving (B2/S2). */
   const handleDragOver = useCallback(
     (e: React.DragEvent) => {
       e.preventDefault();
       setIsDragOver(true);
-      setStatus("dragging");
+      setStatus((s) => (s === "saving" ? s : "dragging"));
     },
     []
   );
 
-  const handleDragLeave = useCallback(() => {
-    setIsDragOver(false);
-    if (status === "dragging") setStatus("idle");
-  }, [status]);
+  // B3: dragleave memantik saat kursor menyeberang child. Hanya anggap
+  // "benar-benar keluar" bila relatedTarget di luar dropzone. Sekaligus
+  // menutup stale-closure (S3) via functional update.
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+      setIsDragOver(false);
+      setStatus((s) => (s === "dragging" ? "idle" : s));
+    }
+  }, []);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
+    setStatus((s) => (s === "saving" ? s : "idle"));
     const file = e.dataTransfer.files?.[0];
     if (file) processFile(file);
   }, [processFile]);
 
   /** Handler hapus foto. */
   function handleRemove() {
+    // Batalkan upload yang sedang jalan (jika ada) + timer pending.
+    uploadSeqRef.current++;
+    timersRef.current.splice(0).forEach((id) => clearTimeout(id));
     setPhoto(null);
-    setPreviewUrl(null);
     setStatus("idle");
     setValidationError(null);
   }
@@ -205,11 +229,12 @@ export function PhotoUploader() {
             Foto <span className="highlight-pink">Profil</span>
           </h2>
         </div>
-        {activePreview && (
+        {photo && (
           <button
             type="button"
             onClick={handleRemove}
-            className="rough-border-soft border-2 border-ink bg-paper px-4 py-1.5 font-display text-xs font-bold text-ink shadow-[3px_3px_0_0_var(--color-ink)] transition-shadow hover:shadow-[5px_5px_0_0_var(--color-ink)] sm:text-sm"
+            disabled={status === "saving"}
+            className="rough-border-soft border-2 border-ink bg-paper px-4 py-1.5 font-display text-xs font-bold text-ink shadow-[3px_3px_0_0_var(--color-ink)] transition-shadow hover:shadow-[5px_5px_0_0_var(--color-ink)] disabled:cursor-not-allowed disabled:opacity-60 sm:text-sm"
           >
             Hapus Foto
           </button>
@@ -264,9 +289,9 @@ export function PhotoUploader() {
         {/* Preview polaroid */}
         <div className="rough-border-soft relative w-48 border-2 border-ink bg-paper-soft p-2 pb-10 shadow-[6px_6px_0_0_var(--color-ink)] sm:w-56 sm:p-3 sm:pb-12">
           <div className="rough-border-soft aspect-square w-full overflow-hidden border border-ink/20 bg-paper-dark">
-            {activePreview ? (
+            {photo ? (
               <Image
-                src={activePreview}
+                src={photo}
                 alt="Preview foto profil"
                 fill
                 sizes="14rem"
@@ -285,7 +310,7 @@ export function PhotoUploader() {
             )}
           </div>
           <p className="mt-2 text-center font-handwritten text-sm text-ink-muted sm:text-base">
-            {previewUrl ? "~ Preview ~" : "~ Default ~"}
+            {photo ? "~ Tersimpan ~" : "~ Default ~"}
           </p>
         </div>
 

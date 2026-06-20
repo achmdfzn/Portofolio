@@ -52,11 +52,11 @@ export function StatCard({
       }}
       className={`${borderClass} border-2 border-ink bg-paper-soft p-5 shadow-[5px_5px_0_0_var(--color-ink)] transition-shadow hover:shadow-[8px_8px_0_0_var(--color-ink)] sm:p-6`}
     >
-      {/* Ikon + accent strip */}
-      <div className="mb-3 flex h-10 w-10 items-center justify-center" style={{ backgroundColor: accent, opacity: 0.2 }}>
-        <div className="h-10 w-10 flex items-center justify-center">
-          {icon}
-        </div>
+      {/* Ikon di atas accent strip (tinted bg, icon full opacity).
+          Sebelumnya `opacity: 0.2` di parent ikut meredupkan icon — bug. */}
+      <div className="relative mb-3 flex h-10 w-10 items-center justify-center overflow-hidden">
+        <div className="absolute inset-0" style={{ backgroundColor: accent, opacity: 0.2 }} />
+        <div className="relative">{icon}</div>
       </div>
 
       {/* Angka */}
