@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import { Kalam, Space_Grotesk, Inter } from "next/font/google";
-import { Intro } from "@/components/Intro";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 /*
@@ -97,6 +94,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  /*
+   * Root layout adalah shell paling luar untuk SEMUA route group:
+   * (marketing), (auth), (app). Di sini hanya fondasi global — fonts,
+   * theme anti-FOUC, background paper, dan skip-link. Chrome spesifik
+   * per group (Header/Footer/Intro untuk marketing, dsb.) dipasang di
+   * layout.tsx tiap route group supaya halaman seperti /auth dan
+   * /dashboard tidak mewarisi Intro/Header/Footer portofolio publik.
+   */
   return (
     <html
       lang="id"
@@ -110,10 +115,7 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           Langsung ke konten utama
         </a>
-        <Intro />
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );
