@@ -21,11 +21,11 @@ const pressStart2P = Press_Start_2P({
 export const metadata: Metadata = {
   title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
   description:
-    "Website portofolio Achmad Fauzan — mahasiswa Teknik Informatika dengan fokus pada Web Development, AI/ML, dan Software Engineering. Coming soon.",
+    "Portfolio website of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering. Coming soon.",
   openGraph: {
     title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
     description:
-      "Website portofolio Achmad Fauzan. Coming soon — sesuatu yang menarik sedang dibangun.",
+      "Portfolio website of Achmad Fauzan. Coming soon — something great is being built.",
     type: "website",
   },
 };
@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="id"
+      lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

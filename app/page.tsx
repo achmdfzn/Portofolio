@@ -61,6 +61,7 @@ export default function Home() {
           }}
         >
           In Development
+
         </span>
       </div>
 
@@ -92,7 +93,7 @@ export default function Home() {
         Software Engineer · AI Enthusiast · Tech Builder
       </p>
 
-      {/* Deskripsi */}
+      {/* Description */}
       <p
         className="animate-fade-up mb-12"
         style={{
@@ -103,7 +104,7 @@ export default function Home() {
           lineHeight: 1.7,
         }}
       >
-        Sedang membangun sesuatu yang menarik. Website portofolio profesional akan segera hadir.
+        Building something great. A professional portfolio website is coming soon.
       </p>
 
       {/* Countdown */}

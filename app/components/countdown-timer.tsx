@@ -63,13 +63,13 @@ export default function CountdownTimer() {
 
   return (
     <div className="flex items-end gap-3 sm:gap-4">
-      <Unit value={timeLeft.days} label="Hari" />
+      <Unit value={timeLeft.days} label="Days" />
       <span style={{ color: 'var(--color-accent)', fontSize: '1.5rem', fontWeight: 700, paddingBottom: '1.75rem' }}>:</span>
-      <Unit value={timeLeft.hours} label="Jam" />
+      <Unit value={timeLeft.hours} label="Hours" />
       <span style={{ color: 'var(--color-accent)', fontSize: '1.5rem', fontWeight: 700, paddingBottom: '1.75rem' }}>:</span>
-      <Unit value={timeLeft.minutes} label="Menit" />
+      <Unit value={timeLeft.minutes} label="Minutes" />
       <span style={{ color: 'var(--color-accent)', fontSize: '1.5rem', fontWeight: 700, paddingBottom: '1.75rem' }}>:</span>
-      <Unit value={timeLeft.seconds} label="Detik" />
+      <Unit value={timeLeft.seconds} label="Seconds" />
     </div>
   );
 }
