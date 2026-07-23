@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { LAUNCH_DATE } from '@/constants';
 
 interface TimeLeft {
   days: number;
@@ -9,10 +10,10 @@ interface TimeLeft {
   seconds: number;
 }
 
-const LAUNCH_DATE = new Date('2026-08-22T00:00:00+07:00');
+const LAUNCH_TIME = new Date(LAUNCH_DATE).getTime();
 
 function calculate(): TimeLeft {
-  const diff = LAUNCH_DATE.getTime() - Date.now();
+  const diff = LAUNCH_TIME - Date.now();
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   return {
     days: Math.floor(diff / 86400000),

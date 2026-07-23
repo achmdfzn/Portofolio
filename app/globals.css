@@ -19,6 +19,8 @@
 
   /* Aksen — Cyan Elektrik */
   --color-accent: #00d4ff;
+  --color-accent-dim: #00d4ff33;
+  --color-accent-glow: #00d4ff66;
   --color-accent-dark: #0099bb;
 
   /* Status */
@@ -112,6 +114,43 @@ body {
 .social-link:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
+}
+
+/* Tombol — varian sesuai DESIGN.md §8 */
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: 1px solid var(--color-accent);
+}
+.btn-primary:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+.btn-secondary:hover {
+  background: var(--color-accent-dim);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid transparent;
+}
+.btn-ghost:hover {
+  color: var(--color-accent);
+  border-color: var(--color-border);
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-ghost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Hormati preferensi reduced motion */

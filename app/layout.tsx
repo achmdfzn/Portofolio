@@ -35,11 +35,11 @@ const pressStart2P = Press_Start_2P({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://achmadfauzan-six.vercel.app/'),
-  title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
+  title: "Achmad Fauzan",
   description:
     "Portfolio website of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering. Coming soon.",
   openGraph: {
-    title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
+    title: "Achmad Fauzan",
     description:
       "Portfolio website of Achmad Fauzan. Coming soon — something great is being built.",
     type: "website",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
+    title: "Achmad Fauzan",
     description:
       "Portfolio website coming soon — something great is being built.",
   },
