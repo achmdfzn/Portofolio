@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
+import { SOCIAL_LINKS } from "@/constants";
+
+const SITE_URL = "https://achmadfauzan-six.vercel.app";
+
+/** Structured data (JSON-LD) untuk rich snippet — PRD KF-007. */
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Achmad Fauzan",
+  url: SITE_URL,
+  jobTitle: "Software Engineer",
+  description:
+    "Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
+  sameAs: SOCIAL_LINKS.filter((link) => link.external).map((link) => link.href),
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +34,8 @@ const pressStart2P = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "Achmad Fauzan",
+  metadataBase: new URL('https://achmadfauzan-six.vercel.app/'),
+  title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
   description:
     "Portfolio website of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering. Coming soon.",
   openGraph: {
@@ -27,6 +43,14 @@ export const metadata: Metadata = {
     description:
       "Portfolio website of Achmad Fauzan. Coming soon — something great is being built.",
     type: "website",
+    url: "https://achmadfauzan-six.vercel.app/",
+    siteName: "Achmad Fauzan Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
+    description:
+      "Portfolio website coming soon — something great is being built.",
   },
 };
 
@@ -37,10 +61,16 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="id"
       className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

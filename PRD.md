@@ -244,13 +244,13 @@ Membangun website portofolio profesional yang menjadi representasi identitas dig
 ### Tech Stack
 
 #### Frontend
-- **Framework**: Next.js 14+ (App Router)
-- **Language**: TypeScript 5+
-- **Styling**: Tailwind CSS 3+
-- **UI Components**: Shadcn UI
-- **Animation**: Framer Motion
-- **Icons**: Lucide React
-- **Font**: Geist Sans + Pixel Font (heading tertentu)
+- **Framework**: Next.js 16.2+ (App Router, React 19 Server Components)
+- **Language**: TypeScript 5+ (strict mode)
+- **Styling**: Tailwind CSS v4 (CSS-first config via `@theme`)
+- **UI Components**: Shadcn UI (rencana Phase 3)
+- **Animation**: Framer Motion (rencana Phase 3)
+- **Icons**: Inline SVG components (Lucide React opsional Phase 3)
+- **Font**: Geist Sans/Mono + Press Start 2P (pixel accent)
 
 #### Backend (Future)
 - **API**: Next.js API Routes / Server Actions
@@ -260,7 +260,7 @@ Membangun website portofolio profesional yang menjadi representasi identitas dig
 - **File Storage**: Vercel Blob Storage atau Cloudinary
 
 #### Development & Deployment
-- **Package Manager**: pnpm
+- **Package Manager**: bun
 - **Version Control**: Git + GitHub
 - **Code Quality**: ESLint + Prettier + Husky
 - **Testing**: Vitest + React Testing Library + Playwright

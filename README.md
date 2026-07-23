@@ -71,7 +71,7 @@ portofolio/
 
 ## 🎨 Design System
 
-- **Color Palette**: Black, white, gray + **Cyan Elektrik** accent (`#00D9FF`)
+- **Color Palette**: Black, white, gray + **Cyan Elektrik** accent (`#00d4ff`)
 - **Typography**: Geist (body), Press Start 2P (pixel headings)
 - **Aesthetic**: Modern Pixel — retro pixel art meets minimalist design
 - **Responsive**: Mobile-first, tested at 375px / 768px / 1280px
