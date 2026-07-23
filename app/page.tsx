@@ -61,7 +61,6 @@ export default function Home() {
           }}
         >
           In Development
-
         </span>
       </div>
 

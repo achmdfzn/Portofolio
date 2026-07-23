@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Achmad Fauzan — Portfolio Website
 
-## Getting Started
+Modern portfolio website built with **Next.js 16**, **TypeScript**, **Tailwind CSS v4**, and **Modern Pixel Aesthetic** design system.
 
-First, run the development server:
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 16.2+ (App Router, React Server Components)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS v4, CSS custom properties
+- **Font**: Geist (sans/mono) + Press Start 2P (pixel accent)
+- **Deployment**: Vercel (recommended)
+
+## 📦 Installation
+
+```bash
+npm install
+```
+
+## 🛠️ Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## 📤 Deployment
 
-To learn more about Next.js, take a look at the following resources:
+### Deploy to Vercel (Recommended)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push your code to GitHub
+2. Go to [vercel.com/new](https://vercel.com/new)
+3. Import your GitHub repository
+4. Vercel will auto-detect Next.js and deploy
+5. Done! Your site is live at `https://your-project.vercel.app`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Environment Variables**: None required for landing page. Add `.env.local` for future features (contact form, CMS, analytics).
 
-## Deploy on Vercel
+### Manual Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run build
+# Upload the `.next` folder + `public` + `package.json` to your hosting
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📂 Project Structure
+
+```
+portofolio/
+├── app/
+│   ├── components/
+│   │   └── countdown-timer.tsx   # Countdown to Aug 22, 2026
+│   ├── globals.css               # Design tokens, animations
+│   ├── layout.tsx                # Root layout, fonts, metadata
+│   └── page.tsx                  # Landing page (Coming Soon)
+├── public/                       # Static assets
+├── AGENTS.md                     # AI agents definition
+├── CLAUDE.md                     # Claude AI working rules
+├── DESIGN.md                     # Design system (colors, typography, spacing)
+├── PRD.md                        # Product Requirements Document
+├── SKILL.md                      # Professional profile
+└── README.md                     # You are here
+```
+
+## 🎨 Design System
+
+- **Color Palette**: Black, white, gray + **Cyan Elektrik** accent (`#00D9FF`)
+- **Typography**: Geist (body), Press Start 2P (pixel headings)
+- **Aesthetic**: Modern Pixel — retro pixel art meets minimalist design
+- **Responsive**: Mobile-first, tested at 375px / 768px / 1280px
+
+Full design tokens documented in [DESIGN.md](./DESIGN.md).
+
+## 📋 Development Roadmap
+
+- [x] **Phase 1**: Documentation (PRD, DESIGN, AGENTS, CLAUDE, SKILL)
+- [x] **Phase 2**: Landing Page Coming Soon
+- [ ] **Phase 3**: Homepage Core Sections (Hero, About, Skills, Projects, Contact)
+- [ ] **Phase 4**: CMS Integration & Admin Panel
+- [ ] **Phase 5**: Blog & Interactive Features
+- [ ] **Phase 6**: Performance Optimization & Analytics
+
+See [PRD.md](./PRD.md) for detailed roadmap.
+
+## 📄 License
+
+Personal portfolio project by Achmad Fauzan.
+
+## 📧 Contact
+
+- GitHub: [achmdfzn](https://github.com/achmdfzn)
+- Email: achmddfzn@proton.me
+- LinkedIn: *(coming soon)*
