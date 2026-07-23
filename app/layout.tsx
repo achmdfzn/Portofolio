@@ -19,7 +19,7 @@ const pressStart2P = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
+  title: "Achmad Fauzan",
   description:
     "Portfolio website of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering. Coming soon.",
   openGraph: {
