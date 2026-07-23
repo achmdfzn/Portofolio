@@ -1,89 +1,334 @@
-# Visual Language & UI/UX Specs (DESIGN.md)
+# Design System Documentation
+## Website Portofolio Achmad Fauzan
 
-## 🎨 Theme: Premium Hand-Drawn / Doodle Aesthetic
-The goal is to create a highly personalized, authentic vibe that looks like a high-end sketchbook. No "AI Slop" or generic SaaS templates.
+---
 
-- **Color Palette**: 
-  - Background: Off-White / Paper `#f8f9fa` or slightly textured `#F4F0EB`.
-  - Ink (Primary Text/Borders): Charcoal Black `#1c1c1c` or `#2d2d2d`.
-  - Accents (Highlighters): Vibrant Yellow `#FFD700`, Electric Blue `#2196F3`, and Pastel Pink `#FFB6C1` (used as rough brush strokes behind text).
-- **Dark Mode** (opt-in via toggle di Header):
-  - Background: Deep warm paper `#1a1815` / `#242019` / `#15130f`.
-  - Ink: Soft paper white `#f4f0eb` / `#e0dcd4` / muted `#a8a39a`.
-  - Accents sedikit lebih terang supaya tetap pop di latar gelap.
-  - Default mengikuti `prefers-color-scheme`; pilihan user disimpan di localStorage. Anti-FOUC via script blocking di `<head>`.
-- **Typography**: 
-  - Headings: A handwritten or display serif font (e.g., 'Kalam', 'Caveat', or 'Space Grotesk' for contrast).
-  - Body: A clean, highly legible sans-serif (e.g., 'Inter' or 'Geist') to balance the messy doodle vibe.
+## 1. Identitas Visual & Filosofi Desain
 
-## 📐 Layout & Components
+### Konsep Utama: Modern Pixel Aesthetic
+Menggabungkan nuansa retro pixel art dengan tampilan modern minimalis, elegan, dan futuristik. Hasilnya adalah identitas visual yang unik, profesional, dan mudah diingat — bukan game lawas, melainkan teknologi masa depan yang terinspirasi dari akar digital.
 
-### 1. Header (Navigation)
-- **Structure**: Irregular-shaped pill container di atas halaman (flat, non-sticky). Header ikut normal document flow dan scroll away bersama konten — tidak melayang/nempel di atas saat scroll.
-- **Branding**: "Achmad Fauzan" written in a bold, slightly jagged font.
-- **Links**: `About`, `Project`, `Skills`, `Contact`.
-- **Theme Toggle**: Tombol Light/Dark mode doodle (matahari ↔ bulan) di sisi kanan, tampil di desktop & mobile.
-- **Animation**: On hover, a rough SVG scribble underlines the link (GSAP `drawSVG` or Framer Motion `pathLength` animation).
+### Tiga Pilar Desain
+- **Clarity** — Setiap elemen memiliki tujuan. Tidak ada dekorasi yang tidak bermakna.
+- **Precision** — Grid ketat, spacing konsisten, tipografi terukur. Mencerminkan mentalitas engineer.
+- **Character** — Pixel aesthetic sebagai tanda tangan visual, bukan gimmick.
 
-### 2. Hero Section
-- **Layout**: Asymmetric split. Left side is text, right side is the visual element.
-- **Copywriting Idea**: 
-  - **Headline**: "Halo, Saya Achmad Fauzan. Menulis Kode. Menggambar Ide."
-  - **Subheadline**: "Fullstack Developer yang membangun ekosistem digital dengan FastAPI & Next.js. Bebas dari desain membosankan, fokus pada performa dan estetika."
-- **Visual Element (kanan)**: 
-  - *Keputusan desain*: alih-alih foto polaroid tunggal (butuh upload foto asli), kolom kanan pakai **grid 2×2 panel doodle** — tiap panel warna highlighter berbeda (kuning/biru/pink), rotasi organik, berisi doodle SVG (avatar AF, code bracket, bohlam ide, terminal prompt). Panel melayang halus (idle floating animation) supaya terasa hidup, bukan statis.
-  - Wavy underline hand-drawn menggambar sendiri (pathLength) di bawah headline.
-- **Animation**: Panel masuk staggered (delay per panel), lalu idle float naik-turun berulang dengan offset berbeda supaya gerakan tidak sinkron. Reduced motion → semua animasi dimatikan.
+### Prinsip Desain
+- Minimalis tapi berkarakter — kurangi noise, perkuat sinyal
+- Konsistensi di atas kreativitas sesaat
+- Aksesibilitas bukan afterthought, melainkan fondasi
+- Performa adalah bagian dari desain
 
-### 3. About Section (The "Me" Canvas)
-- **Design**: Looks like a ripped piece of paper or a sticky note taped to the screen.
-- **Copywriting Idea**: "Saya percaya bahwa web development bukan sekadar menyatukan API dan UI, tapi tentang menciptakan pengalaman. Dengan Supabase sebagai fondasi data dan FastAPI untuk logika berat, saya memastikan *backend* sekuat *frontend*-nya."
+---
 
-### 4. Project Section (Grid Anti-Slop)
-- **Layout**: 3-column uniform grid (responsive: 1 / 2 / 3 kolom). Cards have rough, hand-drawn borders.
-- **Card (minimal)**: Judul + tahun, tech badges (dengan ikon doodle), CTA arrow. Deskripsi tidak ditampilkan di card — tersedia di halaman detail.
-- **Project 1**: "Doodle Backend API" - Sistem arsitektur microservices menggunakan FastAPI dengan validasi Pydantic yang ketat.
-- **Project 2**: "Next.js Supabase Vault" - Platform autentikasi kustom dengan implementasi Row Level Security (RLS) tingkat tinggi.
-- **Project 3**: "Sketchboard Collab" - Aplikasi kolaborasi real-time bergaya infinite canvas dengan WebSocket dan Canvas API.
+## 2. Color Palette
 
-### 4b. Skills Section (Marquee Ticker)
-- **Layout**: 2 baris marquee berjalan infinite. Baris atas geser ke kiri, baris bawah geser ke kanan (arah berlawanan).
-- **Item**: Setiap skill berupa TechBadge (ikon SVG doodle + nama tech), dipakai untuk: HTML, CSS, JavaScript, TypeScript, React, Next.js, Node.js, Python, FastAPI, Tailwind CSS, PostgreSQL, MongoDB, Redis, Docker, Git, Supabase, REST API, WebSocket, Framer Motion, Zod.
-- **Animation**: CSS `@keyframes` infinite scroll (bukan JS) untuk performa optimal. Fade edges di kiri & kanan supaya transisi mulus. Hormati `prefers-reduced-motion` (marquee berhenti).
-- **Copywriting Idea**: "Tools yang saya pakai. Dari frontend hingga backend — ini senjata harian saya."
+### Warna Dasar
+| Token | Hex | Penggunaan |
+|-------|-----|------------|
+| `--color-bg` | `#0a0a0a` | Background utama |
+| `--color-surface` | `#111111` | Card, panel, surface |
+| `--color-surface-2` | `#1a1a1a` | Surface elevated |
+| `--color-border` | `#222222` | Border default |
+| `--color-border-subtle` | `#1a1a1a` | Border halus |
 
-### 5. Contact Section
-- **Design**: Form bergaya lined-paper full-width (single column, tanpa ilustrasi envelope kolom kiri). Heading + copywriting singkat di atas form sebagai intro.
-- **Form**: Input fields just have a solid bottom border (no full boxes), acting like lined paper. Field Nama & Email side-by-side (grid 2 kolom di desktop), Pesan full-width.
-- **Copywriting Idea**: "Punya ide gila? Mari kita diskusikan. (Atau sekadar menyapa via email)."
+### Warna Teks
+| Token | Hex | Penggunaan |
+|-------|-----|------------|
+| `--color-text-primary` | `#f0f0f0` | Teks utama |
+| `--color-text-secondary` | `#a0a0a0` | Teks sekunder, caption |
+| `--color-text-muted` | `#555555` | Placeholder, disabled |
 
-### 6. Footer Section
-- **Design**: Footer terlihat seperti bagian bawah halaman sketchbook, dibatasi garis sobekan kasar (jagged border-top) dari konten di atasnya.
-- **Content**: Quick links (About, Project, Contact) dan ikon sosial media (GitHub, LinkedIn, Email) digambar manual sebagai doodle kecil, bukan ikon Font Awesome generik.
-- **Copywriting Idea**: "Dibuat dengan kopi, banyak debugging, dan sedikit kewarasan. © 2026 Achmad Fauzan."
-- **Animation**: Tanda tangan kecil yang seolah "menulis sendiri" (SVG `pathLength`) muncul saat footer masuk viewport.
+### Aksen — Cyan Elektrik
+| Token | Hex | Penggunaan |
+|-------|-----|------------|
+| `--color-accent` | `#00d4ff` | Aksen utama, CTA, highlight |
+| `--color-accent-dim` | `#00d4ff33` | Background aksen transparan |
+| `--color-accent-glow` | `#00d4ff66` | Efek glow |
+| `--color-accent-dark` | `#0099bb` | Hover state aksen |
 
-### 7. Loading / Intro Sequence
-- **Design**: Sebelum hero muncul, tampilkan animasi singkat berupa pena yang menggambar inisial "AF" stroke demi stroke, lalu fade ke hero section.
-- **Duration**: Maksimal 1.5 detik, dan sediakan opsi skip (klik di mana saja pada layar) supaya pengunjung yang kembali lagi tidak harus menunggu animasi yang sama berulang kali.
+### Warna Status
+| Token | Hex | Penggunaan |
+|-------|-----|------------|
+| `--color-success` | `#00ff88` | Status sukses |
+| `--color-warning` | `#ffaa00` | Peringatan |
+| `--color-error` | `#ff4444` | Error |
 
-### 8. Project Detail Page (Case Study)
-- **Design**: Setiap card di Project Section mengarah ke halaman detail tersendiri, bukan sekadar modal popup, supaya project punya ruang cerita yang lebih lengkap.
-- **Content**: Problem statement, peran Achmad di project tersebut, badge tech stack berbentuk pil dengan border tangan, screenshot dalam bingkai polaroid, dan tombol "Lihat di GitHub" yang didesain seperti stempel.
+### Aturan Penggunaan Warna
+- Aksen cyan hanya untuk elemen interaktif, highlight, dan focal point — jangan overuse
+- Maksimal 2 warna aksen dalam satu viewport
+- Background selalu gelap; jangan gunakan background terang kecuali untuk kontras yang disengaja
+- Glow effect hanya pada elemen yang benar-benar ingin ditonjolkan
 
-## 🌪️ Motion & Interactions (Taste-Skill Rules)
-- **No cheap transitions**: Avoid standard `transition-all duration-300`. 
-- **Magnetic Elements**: Use Framer Motion to make the "Project" cards slightly pull towards the user's cursor.
-- **Scroll Reveal**: Elements don't just fade in; they "unfold" or "sketch" themselves into existence as they enter the viewport.
-- **Reduced Motion**: Hormati setting `prefers-reduced-motion` di browser pengguna. Saat aktif, ganti animasi unfold/sketch dengan fade-in sederhana, jangan dihilangkan total agar transisi antar section tetap halus.
+---
 
-## 📱 Responsiveness & Accessibility (Quality Floor)
-- **Breakpoints**: Mobile-first dengan breakpoint standar Tailwind (`sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px). Header berubah jadi hamburger menu bergambar tangan di mobile, dan efek magnetic cursor pada Project cards otomatis nonaktif di bawah breakpoint `md`.
-- **Contrast**: Pastikan teks Charcoal di atas Off-White sudah lolos WCAG AA. Warna aksen (Yellow, Blue, Pink) dipakai untuk dekorasi atau highlight saja, bukan untuk teks penting, agar kontras tetap terjaga.
-- **Focus State**: Ganti outline focus bawaan browser dengan ring tangan kasar (rough circle atau scribble underline) supaya pengguna keyboard tetap bisa melihat elemen aktif tanpa merusak vibe doodle-nya.
-- **Alt Text**: Semua foto dan ilustrasi doodle wajib punya alt text deskriptif untuk screen reader.
+## 3. Tipografi
 
-## 🔍 Metadata & SEO
-- **Favicon**: Ikon kecil berisi inisial "AF" dalam lingkaran tangan, konsisten dengan branding di header.
-- **Open Graph Image**: Siapkan gambar 1200x630px bergaya sama dengan hero section, supaya preview link di WhatsApp atau LinkedIn tetap terlihat khas.
-- **Title & Description**: Pakai pola title "Achmad Fauzan - Fullstack Developer" dan meta description singkat yang mengandung kata kunci FastAPI, Next.js, dan Supabase untuk membantu pencarian organik.
+### Font Stack
+```css
+/* Heading utama — modern sans */
+--font-heading: 'Geist', 'Inter', system-ui, sans-serif;
+
+/* Pixel heading — hanya untuk nama / hero title */
+--font-pixel: 'Press Start 2P', 'Courier New', monospace;
+
+/* Body & UI */
+--font-body: 'Geist', 'Inter', system-ui, sans-serif;
+
+/* Code & terminal */
+--font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', monospace;
+```
+
+### Skala Tipografi
+| Token | Size | Weight | Line Height | Penggunaan |
+|-------|------|--------|-------------|------------|
+| `--text-hero` | 4rem / 64px | 700 | 1.1 | Nama di hero (pixel font) |
+| `--text-h1` | 2.5rem / 40px | 700 | 1.2 | Heading halaman |
+| `--text-h2` | 1.75rem / 28px | 600 | 1.3 | Section heading |
+| `--text-h3` | 1.25rem / 20px | 600 | 1.4 | Sub-heading |
+| `--text-body-lg` | 1.125rem / 18px | 400 | 1.6 | Body besar |
+| `--text-body` | 1rem / 16px | 400 | 1.6 | Body default |
+| `--text-sm` | 0.875rem / 14px | 400 | 1.5 | Caption, label |
+| `--text-xs` | 0.75rem / 12px | 400 | 1.4 | Badge, tag kecil |
+
+### Aturan Tipografi
+- Font pixel (`Press Start 2P`) **hanya** untuk nama "Achmad Fauzan" di hero dan elemen dekoratif tertentu
+- Semua body text menggunakan Geist / Inter untuk keterbacaan optimal
+- Jangan gunakan lebih dari 2 font family dalam satu halaman
+- Letter spacing untuk pixel font: `0.05em`; untuk heading besar: `-0.02em`
+
+---
+
+## 4. Spacing & Layout
+
+### Spacing Scale (berbasis 4px)
+```css
+--space-1:  4px
+--space-2:  8px
+--space-3:  12px
+--space-4:  16px
+--space-5:  20px
+--space-6:  24px
+--space-8:  32px
+--space-10: 40px
+--space-12: 48px
+--space-16: 64px
+--space-20: 80px
+--space-24: 96px
+--space-32: 128px
+```
+
+### Grid System
+- **Desktop**: 12 kolom, gutter 24px, max-width 1280px
+- **Tablet**: 8 kolom, gutter 20px
+- **Mobile**: 4 kolom, gutter 16px, padding horizontal 20px
+
+### Container
+```css
+--container-sm:  640px
+--container-md:  768px
+--container-lg:  1024px
+--container-xl:  1280px
+--container-2xl: 1440px
+```
+
+---
+
+## 5. Pixel Aesthetic — Panduan Penggunaan
+
+### Elemen Pixel yang Diizinkan
+- Nama "Achmad Fauzan" di hero section (font pixel)
+- Pixel cursor custom (8×8 atau 16×16 px)
+- Pixel grid overlay halus di background (opacity 3–5%)
+- Pixel border / divider dekoratif (1px solid, sharp corner)
+- Pixel icon kecil sebagai aksen (bukan icon utama)
+- Loading animation berbasis pixel block
+
+### Elemen Pixel yang Dilarang
+- Sprite karakter game
+- Pixel art yang mendominasi layout
+- Warna palette 8-bit yang mencolok
+- Animasi pixel yang mengganggu keterbacaan konten
+
+### Noise Texture
+- Gunakan SVG noise filter atau CSS grain dengan opacity 2–4%
+- Terapkan hanya pada background, bukan pada teks atau komponen interaktif
+
+---
+
+## 6. Efek Visual
+
+### Glow Effect
+```css
+/* Glow ringan untuk elemen aksen */
+box-shadow: 0 0 20px var(--color-accent-glow);
+
+/* Glow teks */
+text-shadow: 0 0 20px var(--color-accent-glow);
+```
+Gunakan glow hanya pada: nama di hero, tombol CTA utama, dan elemen yang sedang di-hover/fokus.
+
+### Border & Outline
+- Border default: `1px solid var(--color-border)`
+- Border aksen: `1px solid var(--color-accent)`
+- Border radius: `4px` (sharp, pixel-feel) — jangan gunakan `rounded-full` kecuali untuk avatar
+- Outline fokus: `2px solid var(--color-accent)` dengan `outline-offset: 2px`
+
+### Backdrop & Blur
+- Gunakan `backdrop-filter: blur(12px)` untuk panel overlay / modal
+- Kombinasikan dengan `background: rgba(10,10,10,0.8)` untuk glassmorphism minimal
+
+---
+
+## 7. Animasi & Motion
+
+### Prinsip Animasi
+- Animasi harus memiliki tujuan: memberi feedback, mengarahkan perhatian, atau memperjelas hierarki
+- Durasi pendek untuk micro-interaction (150–300ms), sedang untuk transisi halaman (400–600ms)
+- Selalu sediakan `prefers-reduced-motion` fallback
+
+### Timing Functions
+```css
+--ease-default:  cubic-bezier(0.4, 0, 0.2, 1)   /* Material standard */
+--ease-in:       cubic-bezier(0.4, 0, 1, 1)
+--ease-out:      cubic-bezier(0, 0, 0.2, 1)
+--ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1) /* Slight overshoot */
+--ease-pixel:    steps(8, end)                    /* Pixel/stepped animation */
+```
+
+### Durasi
+```css
+--duration-fast:   150ms
+--duration-normal: 300ms
+--duration-slow:   500ms
+--duration-page:   600ms
+```
+
+### Micro-interactions
+- **Hover tombol**: scale 1.02, brightness +10%, durasi 150ms
+- **Hover link**: underline slide-in dari kiri, warna berubah ke aksen
+- **Hover card**: border berubah ke aksen, subtle glow, translate Y -2px
+- **Click/tap**: scale 0.97, durasi 100ms
+- **Focus**: outline aksen muncul dengan fade-in 150ms
+
+### Animasi Halaman
+- **Page enter**: fade-in + slide-up 20px, durasi 400ms, ease-out
+- **Section reveal**: stagger children dengan delay 50ms per item
+- **Countdown**: flip animation per digit, ease-spring
+
+### Pixel Cursor
+```css
+cursor: url('/cursors/pixel-cursor.cur'), auto;
+```
+Cursor 16×16px, warna putih dengan outline hitam 1px.
+
+### Reduced Motion
+```css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+---
+
+## 8. Komponen Reusable
+
+### Button
+Varian: `primary`, `secondary`, `ghost`, `danger`
+- Primary: background aksen, teks gelap, glow on hover
+- Secondary: border aksen, teks aksen, background transparan
+- Ghost: teks muted, border subtle, hover ke secondary
+- Ukuran: `sm` (32px), `md` (40px), `lg` (48px)
+- Border radius: 4px (pixel-feel)
+
+### Badge / Tag
+- Background: `var(--color-accent-dim)`
+- Border: `1px solid var(--color-accent)`
+- Teks: `var(--color-accent)`, font-size xs
+- Padding: 2px 8px
+
+### Card
+- Background: `var(--color-surface)`
+- Border: `1px solid var(--color-border)`
+- Border radius: 4px
+- Hover: border berubah ke aksen, glow ringan
+- Padding: 24px
+
+### Input / Form
+- Background: `var(--color-surface-2)`
+- Border: `1px solid var(--color-border)`
+- Focus border: `var(--color-accent)`
+- Border radius: 4px
+- Placeholder: `var(--color-text-muted)`
+
+### Divider
+- `1px solid var(--color-border)`
+- Atau pixel divider: `1px dashed var(--color-border)` dengan gap
+
+---
+
+## 9. Responsive Design
+
+### Breakpoints
+```css
+--bp-sm:  640px   /* Mobile landscape */
+--bp-md:  768px   /* Tablet */
+--bp-lg:  1024px  /* Laptop */
+--bp-xl:  1280px  /* Desktop */
+--bp-2xl: 1536px  /* Large desktop */
+```
+
+### Perilaku Responsif
+- **Mobile first** — mulai dari mobile, tambahkan kompleksitas ke atas
+- Navigasi mobile: hamburger menu dengan slide-in panel
+- Font hero di mobile: 2rem (dari 4rem di desktop)
+- Grid kolom menyesuaikan breakpoint (lihat bagian Grid)
+- Touch target minimal 44×44px di mobile
+- Padding horizontal mobile: 20px
+
+---
+
+## 10. Aksesibilitas
+
+### Standar
+- WCAG 2.1 Level AA minimum
+- Contrast ratio teks normal: minimal 4.5:1
+- Contrast ratio teks besar (18px+): minimal 3:1
+- Aksen cyan `#00d4ff` di atas background `#0a0a0a`: ratio ~9.5:1 ✓
+
+### Implementasi
+- Semua gambar memiliki `alt` text yang deskriptif
+- Semua elemen interaktif dapat diakses via keyboard (Tab, Enter, Space, Escape)
+- Focus indicator selalu terlihat — jangan `outline: none` tanpa pengganti
+- ARIA label untuk icon-only button
+- Heading hierarchy konsisten (h1 → h2 → h3, tidak melompat)
+- `lang="id"` di root HTML
+
+---
+
+## 11. Dark Mode
+
+Website ini secara default adalah dark mode. Jika light mode ditambahkan di Phase 4:
+- Gunakan CSS custom properties untuk semua warna
+- Toggle via `data-theme="light"` di root element
+- Simpan preferensi di localStorage
+- Hormati `prefers-color-scheme` sebagai default awal
+
+---
+
+## 12. Referensi Visual
+
+- **Typografi & Layout**: Linear.app, Vercel.com
+- **Pixel Aesthetic**: PICO-8, Lospec palette, early web aesthetic
+- **Motion**: Stripe, Framer.com
+- **Dark UI**: Raycast, Fig, Warp terminal
+- **Portfolio**: Brittany Chiang (bchiang7.com), Josh Comeau
+
+---
+
+**Document Version**: 1.0
+**Last Updated**: 23 Juli 2026
+**Status**: Active — gunakan sebagai acuan utama selama development
