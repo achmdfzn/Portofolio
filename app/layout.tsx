@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
-import { SOCIAL_LINKS } from "@/constants";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/atoms/theme-toggle";
 
 const SITE_URL = "https://achmadfauzan-six.vercel.app";
 
-/** Structured data (JSON-LD) untuk rich snippet — PRD KF-007. */
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -16,7 +14,10 @@ const personJsonLd = {
   jobTitle: "Software Engineer",
   description:
     "Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
-  sameAs: SOCIAL_LINKS.filter((link) => link.external).map((link) => link.href),
+  sameAs: [
+    "https://github.com/achmdfzn",
+    "https://linkedin.com/in/achmadfauzan",
+  ],
 };
 
 const geistSans = Geist({
@@ -37,22 +38,25 @@ const pressStart2P = Press_Start_2P({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://achmadfauzan-six.vercel.app/'),
-  title: "Achmad Fauzan",
+  title: {
+    default: "Achmad Fauzan — Software Engineer & AI Enthusiast",
+    template: "%s — Achmad Fauzan",
+  },
   description:
-    "Portfolio website of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering. Coming soon.",
+    "Portfolio of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering. Building clean, modern, and impactful digital experiences.",
   openGraph: {
-    title: "Achmad Fauzan",
+    title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
     description:
-      "Portfolio website of Achmad Fauzan. Coming soon — something great is being built.",
+      "Portfolio of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
     type: "website",
     url: "https://achmadfauzan-six.vercel.app/",
     siteName: "Achmad Fauzan Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Achmad Fauzan",
+    title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
     description:
-      "Portfolio website coming soon — something great is being built.",
+      "Portfolio of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
   },
 };
 
