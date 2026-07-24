@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import CountdownTimer from './components/countdown-timer';
+import CountdownTimer from '@/components/molecules/countdown-timer';
 import { SOCIAL_LINKS } from '@/constants';
 
 export default function Home() {

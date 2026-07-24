@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import { SOCIAL_LINKS } from "@/constants";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/atoms/theme-toggle";
 
 const SITE_URL = "https://achmadfauzan-six.vercel.app";
 
@@ -61,7 +63,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="id"
+      lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
@@ -69,7 +72,15 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t){t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'}document.documentElement.dataset.theme=t})()`,
+          }}
+        />
+        <ThemeProvider>
+          <ThemeToggle />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

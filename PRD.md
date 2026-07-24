@@ -270,54 +270,40 @@ Membangun website portofolio profesional yang menjadi representasi identitas dig
 
 ### Folder Structure
 
-```
-portofolio/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── (landing)/         # Landing page group
-│   │   ├── (main)/            # Main website group
-│   │   ├── api/               # API routes
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx           # Root page
-│   ├── components/            # React components
-│   │   ├── atoms/             # Atomic design - atoms
-│   │   ├── molecules/         # Atomic design - molecules
-│   │   ├── organisms/         # Atomic design - organisms
-│   │   ├── templates/         # Atomic design - templates
-│   │   └── ui/                # Shadcn UI components
-│   ├── lib/                   # Utility functions
-│   │   ├── utils.ts           # General utilities
-│   │   ├── fonts.ts           # Font configurations
-│   │   └── validations.ts     # Form validations
-│   ├── hooks/                 # Custom React hooks
-│   ├── styles/                # Global styles
-│   │   └── globals.css        # Tailwind imports & custom styles
-│   ├── types/                 # TypeScript type definitions
-│   ├── constants/             # App constants
-│   └── config/                # App configurations
-├── public/                    # Static assets
-│   ├── images/               # Image assets
-│   ├── fonts/                # Custom fonts
-│   └── icons/                # Icon assets
-├── docs/                      # Documentation
-│   ├── PRD.md                # Product Requirements Document
-│   ├── DESIGN.md             # Design System Documentation
-│   ├── AGENTS.md             # AI Agents Definition
-│   ├── CLAUDE.md             # Claude AI Working Rules
-│   └── SKILL.md              # Professional Skills Profile
-├── tests/                     # Test files
-│   ├── unit/                 # Unit tests
-│   ├── integration/          # Integration tests
-│   └── e2e/                  # End-to-end tests
-├── .vscode/                   # VS Code settings
-├── .husky/                    # Git hooks
-├── .github/                   # GitHub workflows
-├── next.config.js            # Next.js configuration
-├── tailwind.config.ts        # Tailwind configuration
-├── tsconfig.json             # TypeScript configuration
-├── package.json              # Dependencies
-└── README.md                 # Project overview
-```
+	```
+	portofolio/
+	├── app/                       # Next.js App Router pages
+	│   ├── favicon.ico            # Site favicon
+	│   ├── globals.css            # Tailwind imports & design tokens
+	│   ├── layout.tsx             # Root layout
+	│   ├── page.tsx               # Root page (landing — coming soon)
+	│   ├── robots.ts              # SEO robots.txt config
+	│   └── sitemap.ts             # SEO sitemap config
+	├── components/                # Shared React components
+	│   ├── atoms/                 # Atomic design — atoms
+	│   │   ├── button.tsx
+	│   │   └── icons.tsx
+	│   └── molecules/             # Atomic design — molecules
+	│       └── countdown-timer.tsx
+	├── constants/                 # App constants
+	│   └── index.ts
+	├── lib/                       # Utility functions
+	│   └── utils.ts
+	├── public/                    # Static assets (images, fonts, icons)
+	├── AGENTS.md                  # AI Agents Definition
+	├── CLAUDE.md                  # Claude AI Working Rules
+	├── DESIGN.md                  # Design System Documentation
+	├── PRD.md                     # Product Requirements Document
+	├── README.md                  # Project overview
+	├── SKILL.md                   # Professional Skills Profile
+	├── bun.lock                   # Bun lockfile
+	├── eslint.config.mjs          # ESLint configuration
+	├── next-env.d.ts              # Next.js TypeScript declarations
+	├── next.config.ts             # Next.js configuration
+	├── package.json               # Dependencies
+	├── postcss.config.mjs         # PostCSS configuration
+	└── tsconfig.json              # TypeScript configuration
+	```
 
 ### Architecture Patterns
 - **Atomic Design** untuk component organization
@@ -399,21 +385,23 @@ Scroll hero section → About → Skills → Projects → Experience → Contact
 - ✅ Buat AGENTS.md (AI Agents Definition)
 - ✅ Buat CLAUDE.md (Claude AI Working Rules)
 - ✅ Buat SKILL.md (Professional Skills Profile)
-- ⬜ Setup project Next.js dengan TypeScript
-- ⬜ Configure Tailwind CSS dan Shadcn UI
-- ⬜ Setup development tools (ESLint, Prettier, Husky)
+- ✅ Setup project Next.js dengan TypeScript
+- ✅ Configure Tailwind CSS (v4)
+- ✅ Setup development tools (ESLint)
+- ⬜ Setup Prettier & Husky
+- ⬜ Install Shadcn UI (Phase 3)
 
 ### Milestone 2: Landing Page Development (Week 3-4)
-- ⬜ Implement design system (colors, typography, spacing)
-- ⬜ Create reusable UI components (Button, Card, etc.)
-- ⬜ Build Landing Page layout dan structure
-- ⬜ Implement hero section dengan animasi
-- ⬜ Add countdown/status development indicator
-- ⬜ Integrate social links dengan hover effects
-- ⬜ Implement responsive design untuk semua devices
+- ✅ Implement design system (colors, typography, spacing) via @theme
+- ✅ Create reusable UI komponen (Button, Icons)
+- ✅ Build Landing Page layout dan structure
+- ✅ Implement hero section dengan animasi fade-up
+- ✅ Add countdown/status development indicator
+- ✅ Integrate social links dengan hover effects
+- ✅ Implement responsive design untuk semua devices
+- ✅ Deploy to production (Vercel)
 - ⬜ Performance optimization dan testing
 - ⬜ Accessibility audit dan fixes
-- ⬜ Deploy to production (Vercel)
 
 ### Milestone 3: Homepage Core Sections (Week 5-8)
 - ⬜ Build navigation system dengan smooth scroll
