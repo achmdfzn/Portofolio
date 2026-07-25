@@ -42,7 +42,7 @@ export interface ContactLink {
 }
 
 /** Tanggal peluncuran — sumber tunggal untuk countdown. */
-export const LAUNCH_DATE = '2026-08-17T00:00:00+07:00';
+export const LAUNCH_DATE = '2026-07-24T00:00:00+07:00';
 
 export const SOCIAL_LINKS: SocialLink[] = [
   { label: 'GitHub', href: 'https://github.com/achmdfzn', Icon: GitHubIcon, external: true },

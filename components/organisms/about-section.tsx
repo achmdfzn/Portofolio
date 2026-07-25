@@ -1,11 +1,33 @@
-import Image from 'next/image';
+const FOCUS_AREAS = [
+  {
+    title: 'Web Development',
+    desc: 'Full-stack dengan Next.js, TypeScript, Tailwind CSS. Clean Architecture, Atomic Design, Server Components.',
+  },
+  {
+    title: 'AI / Machine Learning',
+    desc: 'Deep Learning, NLP, model deployment. TensorFlow, PyTorch, Scikit-learn. Dari eksperimen ke produksi.',
+  },
+  {
+    title: 'Software Engineering',
+    desc: 'SOLID, separation of concerns, design patterns. Kode modular, reusable, dan maintainable.',
+  },
+  {
+    title: 'Cloud & DevOps',
+    desc: 'Vercel, Docker, CI/CD. Dari development ke deployment dengan infrastruktur modern.',
+  },
+];
+
+const AGENT_PRINCIPLES = [
+  'Documentation-first — setiap keputusan mengacu pada PRD, DESIGN, dan konvensi',
+  'Single source of truth — design system, aturan kode, kebutuhan di satu tempat',
+  'Modular & reusable — no duplicate code, minimal footprint',
+  'Quality by design — accessibility, performance, dan security bukan afterthought',
+];
 
 export default function AboutSection() {
   return (
-    <section
-      className="mx-auto flex max-w-4xl flex-col items-center px-5 py-24"
-      id="about"
-    >
+    <section className="mx-auto flex max-w-5xl flex-col items-center px-5 py-24" id="about">
+      {/* Heading */}
       <h2
         className="mb-3 text-xs font-semibold uppercase tracking-[0.15em]"
         style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-mono)' }}
@@ -13,47 +35,70 @@ export default function AboutSection() {
         About
       </h2>
       <h3
-        className="mb-12 text-2xl font-semibold"
+        className="mb-4 text-2xl font-semibold"
         style={{ color: 'var(--color-text-primary)' }}
       >
-        Who I Am
+        How I Work
       </h3>
+      <p
+        className="mb-12 max-w-lg text-center text-sm leading-relaxed"
+        style={{ color: 'var(--color-text-secondary)' }}
+      >
+        Informatics Engineering student yang menggabungkan software engineering rigor dengan
+        eksplorasi AI. Bukan sekadar coding — tapi membangun produk yang clean, scalable, dan berdampak.
+      </p>
 
-      <div className="flex flex-col items-center gap-10 sm:flex-row sm:items-start">
-        {/* Avatar */}
-        <div className="shrink-0">
-          <Image
-            src="/images/avatar.svg"
-            alt="Achmad Fauzan"
-            width={160}
-            height={160}
-            className="rounded-xl"
+      {/* Focus Areas — grid cards */}
+      <div className="mb-16 grid w-full gap-4 sm:grid-cols-2">
+        {FOCUS_AREAS.map(({ title, desc }) => (
+          <div
+            key={title}
+            className="group rounded border p-5 transition-all duration-200"
             style={{
-              border: '1px solid var(--color-border)',
+              background: 'var(--color-surface)',
+              borderColor: 'var(--color-border)',
             }}
-          />
-        </div>
+          >
+            <h4
+              className="mb-2 text-sm font-semibold"
+              style={{ color: 'var(--color-accent)' }}
+            >
+              {title}
+            </h4>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+              {desc}
+            </p>
+          </div>
+        ))}
+      </div>
 
-        {/* Bio */}
-        <div
-          className="flex flex-col gap-4 text-left"
-          style={{ color: 'var(--color-text-secondary)', lineHeight: 1.8 }}
+      {/* Engineering Principles */}
+      <div className="mb-16 w-full">
+        <h4
+          className="mb-6 text-center text-xs font-semibold uppercase tracking-[0.15em]"
+          style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}
         >
-          <p>
-            I am an Informatics Engineering student with a deep passion for modern software
-            engineering and artificial intelligence. I focus on building products that are not
-            only functional but also have high engineering quality — clean, scalable, and
-            user-oriented.
-          </p>
-          <p>
-            My work combines full-stack web development with active exploration in Machine
-            Learning to create smart, impactful solutions. I believe in writing code that
-            stands the test of time — well-architected, well-tested, and well-documented.
-          </p>
-          <p>
-            Currently diving deep into deep learning with TensorFlow and PyTorch while
-            refining my craft in Next.js, TypeScript, and modern web architecture.
-          </p>
+          Engineering Principles
+        </h4>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {AGENT_PRINCIPLES.map((principle) => (
+            <div
+              key={principle}
+              className="flex items-start gap-3 rounded border p-4"
+              style={{
+                background: 'var(--color-surface)',
+                borderColor: 'var(--color-border)',
+              }}
+            >
+              <span
+                className="mt-0.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{ background: 'var(--color-accent)' }}
+              />
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                {principle}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

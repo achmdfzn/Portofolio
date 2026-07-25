@@ -38,9 +38,8 @@ export default function Navbar() {
     <nav
       className="fixed top-0 left-0 right-0 z-40 border-b"
       style={{
-        background: 'rgba(10, 10, 10, 0.85)',
-        backdropFilter: 'blur(12px)',
-        borderColor: 'var(--color-border)',
+        background: 'transparent',
+        borderColor: 'transparent',
       }}
     >
       <div

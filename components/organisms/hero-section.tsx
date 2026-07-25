@@ -1,4 +1,21 @@
-import Image from 'next/image';
+import { RESUME_URL } from '@/constants';
+
+const RULES = [
+  'Documentation-first',
+  'No duplicate code',
+  'TypeScript strict',
+  'Minimal footprint',
+];
+
+const AGENTS = [
+  'PM', 'Arch', 'FE', 'BE', 'UI/UX', 'Motion',
+  'Accessibility', 'SEO', 'Performance', 'QA', 'Security', 'DevOps',
+];
+
+const STACK = [
+  'Next.js', 'TypeScript', 'Tailwind', 'Framer Motion',
+  'Node.js', 'Python', 'PostgreSQL',
+];
 
 export default function HeroSection() {
   return (
@@ -6,34 +23,54 @@ export default function HeroSection() {
       className="bg-pixel-grid flex min-h-screen flex-col items-center justify-center px-5 py-20 text-center"
       id="hero"
     >
-      {/* Avatar */}
-      <div className="animate-fade-up mb-8">
-        <Image
-          src="/images/avatar.svg"
-          alt=""
-          width={120}
-          height={120}
-          className="rounded-full"
-          priority
-          style={{
-            border: '2px solid var(--color-border)',
-          }}
-        />
-      </div>
-
-      {/* Greeting */}
-      <p
-        className="animate-fade-up mb-4 text-sm"
+      {/* Terminal / Code widget */}
+      <div
+        className="animate-fade-up mb-10 w-full max-w-lg overflow-hidden rounded border text-left font-mono text-xs"
         style={{
-          color: 'var(--color-text-muted)',
-          fontFamily: 'var(--font-mono)',
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase',
-          animationDelay: '40ms',
+          background: 'var(--color-surface)',
+          borderColor: 'var(--color-border)',
         }}
       >
-        Hi, my name is
-      </p>
+        {/* Terminal header */}
+        <div
+          className="flex items-center gap-1.5 border-b px-3 py-2"
+          style={{ borderColor: 'var(--color-border)' }}
+        >
+          <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: 'var(--color-error)' }} />
+          <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: 'var(--color-warning)' }} />
+          <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: 'var(--color-success)' }} />
+          <span className="ml-2" style={{ color: 'var(--color-text-muted)' }}>portfolio</span>
+        </div>
+
+        {/* Terminal body */}
+        <div className="flex flex-col gap-1.5 px-4 py-4">
+          <p style={{ color: 'var(--color-text-muted)' }}>
+            <span style={{ color: 'var(--color-success)' }}>$</span> build --stack modern
+          </p>
+          <p className="flex flex-wrap gap-x-2">
+            <span style={{ color: 'var(--color-accent)' }}>principles:</span>
+            {RULES.map((r) => (
+              <span key={r} style={{ color: 'var(--color-text-secondary)' }}>{r}</span>
+            ))}
+          </p>
+          <p className="flex flex-wrap gap-x-2">
+            <span style={{ color: 'var(--color-accent)' }}>agents:</span>
+            {AGENTS.map((a) => (
+              <span key={a} style={{ color: 'var(--color-text-muted)' }}>{a}</span>
+            ))}
+          </p>
+          <p className="flex flex-wrap gap-x-2">
+            <span style={{ color: 'var(--color-accent)' }}>stack:</span>
+            {STACK.map((s) => (
+              <span key={s} style={{ color: 'var(--color-warning)' }}>{s}</span>
+            ))}
+          </p>
+          <p style={{ color: 'var(--color-text-muted)' }}>
+            <span style={{ color: 'var(--color-success)' }}>$</span> ready —
+            <span style={{ color: 'var(--color-accent)' }}> deploy 2026</span>
+          </p>
+        </div>
+      </div>
 
       {/* Name */}
       <h1
@@ -74,8 +111,8 @@ export default function HeroSection() {
           lineHeight: 1.7,
         }}
       >
-        Informatics Engineering student crafting clean, modern web experiences and
-        exploring artificial intelligence to build impactful solutions.
+        Informatics Engineering student building with clean architecture, modern stack, and
+        14 AI agents backing every line of code.
       </p>
 
       {/* CTA */}
@@ -93,7 +130,7 @@ export default function HeroSection() {
           Get In Touch
         </a>
         <a
-          href="/resume.pdf"
+          href={RESUME_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-ghost inline-flex h-11 items-center rounded px-6 text-sm font-medium"

@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/atoms/theme-toggle";
 
 const SITE_URL = "https://achmadfauzan-six.vercel.app";
-
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -37,7 +36,7 @@ const pressStart2P = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://achmadfauzan-six.vercel.app/'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Achmad Fauzan — Software Engineer & AI Enthusiast",
     template: "%s — Achmad Fauzan",
@@ -49,8 +48,11 @@ export const metadata: Metadata = {
     description:
       "Portfolio of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
     type: "website",
-    url: "https://achmadfauzan-six.vercel.app/",
+    url: SITE_URL,
     siteName: "Achmad Fauzan Portfolio",
+  },
+  icons: {
+    icon: '/images/favicon.svg',
   },
   twitter: {
     card: "summary_large_image",
