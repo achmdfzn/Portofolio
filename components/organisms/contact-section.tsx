@@ -6,7 +6,7 @@ export default function ContactSection() {
       className="mx-auto flex max-w-lg flex-col items-center px-5 py-24 text-center"
       id="contact"
     >
-      {/* Heading mini — pixel style */}
+      {/* Heading mini - pixel style */}
       <h2
         className="mb-2 text-xs font-semibold uppercase tracking-[0.2em]"
         style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-mono)' }}
@@ -21,7 +21,7 @@ export default function ContactSection() {
         Open for opportunities, collaborations, or just a conversation.
       </p>
 
-      {/* Social links — row */}
+      {/* Social links - row */}
       <div className="flex items-center justify-center gap-3">
         {CONTACT_LINKS.map(({ label, href, Icon }) => (
           <a

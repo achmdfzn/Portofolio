@@ -38,15 +38,15 @@ const pressStart2P = Press_Start_2P({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Achmad Fauzan — Software Engineer & AI Enthusiast",
-    template: "%s — Achmad Fauzan",
+    default: "Achmad Fauzan - Software Engineer & AI Enthusiast",
+    template: "%s - Achmad Fauzan",
   },
   description:
-    "Portfolio of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering. Building clean, modern, and impactful digital experiences.",
+    "Portfolio of Achmad Fauzan - Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering. Building clean, modern, and impactful digital experiences.",
   openGraph: {
-    title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
+    title: "Achmad Fauzan - Software Engineer & AI Enthusiast",
     description:
-      "Portfolio of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
+      "Portfolio of Achmad Fauzan - Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
     type: "website",
     url: SITE_URL,
     siteName: "Achmad Fauzan Portfolio",
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Achmad Fauzan — Software Engineer & AI Enthusiast",
+    title: "Achmad Fauzan - Software Engineer & AI Enthusiast",
     description:
-      "Portfolio of Achmad Fauzan — Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
+      "Portfolio of Achmad Fauzan - Informatics Engineering student focused on Web Development, AI/ML, and Software Engineering.",
   },
 };
 

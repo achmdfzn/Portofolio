@@ -1,27 +1,27 @@
 const FOCUS_AREAS = [
   {
     title: 'Web Development',
-    desc: 'Full-stack dengan Next.js, TypeScript, Tailwind CSS. Clean Architecture, Atomic Design, Server Components.',
+    desc: 'Full-stack with Next.js, TypeScript, Tailwind CSS. Clean Architecture, Atomic Design, Server Components.',
   },
   {
     title: 'AI / Machine Learning',
-    desc: 'Deep Learning, NLP, model deployment. TensorFlow, PyTorch, Scikit-learn. Dari eksperimen ke produksi.',
+    desc: 'Deep Learning, NLP, model deployment. TensorFlow, PyTorch, Scikit-learn. From experiment to production.',
   },
   {
     title: 'Software Engineering',
-    desc: 'SOLID, separation of concerns, design patterns. Kode modular, reusable, dan maintainable.',
+    desc: 'SOLID, separation of concerns, design patterns. Modular, reusable, maintainable code.',
   },
   {
     title: 'Cloud & DevOps',
-    desc: 'Vercel, Docker, CI/CD. Dari development ke deployment dengan infrastruktur modern.',
+    desc: 'Vercel, Docker, CI/CD. From development to deployment with modern infrastructure.',
   },
 ];
 
 const AGENT_PRINCIPLES = [
-  'Documentation-first — setiap keputusan mengacu pada PRD, DESIGN, dan konvensi',
-  'Single source of truth — design system, aturan kode, kebutuhan di satu tempat',
-  'Modular & reusable — no duplicate code, minimal footprint',
-  'Quality by design — accessibility, performance, dan security bukan afterthought',
+  'Documentation-first - every decision refers to PRD, DESIGN, and conventions',
+  'Single source of truth - design system, code rules, requirements in one place',
+  'Modular & reusable - no duplicate code, minimal footprint',
+  'Quality by design - accessibility, performance, security are not afterthoughts',
 ];
 
 export default function AboutSection() {
@@ -44,11 +44,11 @@ export default function AboutSection() {
         className="mb-12 max-w-lg text-center text-sm leading-relaxed"
         style={{ color: 'var(--color-text-secondary)' }}
       >
-        Informatics Engineering student yang menggabungkan software engineering rigor dengan
-        eksplorasi AI. Bukan sekadar coding — tapi membangun produk yang clean, scalable, dan berdampak.
+        Informatics Engineering student who combines software engineering rigor with
+        AI exploration. Not just coding -- but building products that are clean, scalable, and impactful.
       </p>
 
-      {/* Focus Areas — grid cards */}
+      {/* Focus Areas - grid cards */}
       <div className="mb-16 grid w-full gap-4 sm:grid-cols-2">
         {FOCUS_AREAS.map(({ title, desc }) => (
           <div

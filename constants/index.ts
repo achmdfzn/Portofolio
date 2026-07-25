@@ -41,7 +41,7 @@ export interface ContactLink {
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
-/** Tanggal peluncuran — sumber tunggal untuk countdown. */
+/** Launch date - single source for countdown. */
 export const LAUNCH_DATE = '2026-07-24T00:00:00+07:00';
 
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -86,7 +86,7 @@ export const PROJECTS: Project[] = [
   {
     title: 'Portfolio Website',
     description:
-      'Personal portfolio with Modern Pixel Aesthetic — built with Next.js 16, TypeScript, Tailwind CSS v4, and Atomic Design. Features dark/light theme, auto-launch date gate, and accessible components.',
+      'Personal portfolio with Modern Pixel Aesthetic - built with Next.js 16, TypeScript, Tailwind CSS v4, and Atomic Design. Features dark/light theme, auto-launch date gate, and accessible components.',
     tags: ['Next.js', 'TypeScript', 'Tailwind', 'Framer Motion'],
     href: '#',
     source: 'https://github.com/achmdfzn/portofolio',
@@ -118,15 +118,15 @@ export const EXPERIENCES: Experience[] = [
   {
     role: 'Software Engineer (Freelance)',
     company: 'Self-employed',
-    period: '2025 — Present',
+    period: '2025 - Present',
     description:
       'Building full-stack web applications and AI/ML projects for clients. Focused on clean architecture, modern tech stacks (Next.js, TypeScript, Python), and user-centric design. Delivered projects on time with high-quality standards.',
     tags: ['Next.js', 'TypeScript', 'Python', 'AI/ML', 'PostgreSQL'],
   },
   {
-    role: 'Teaching Assistant — Web Development',
+    role: 'Teaching Assistant - Web Development',
     company: 'Informatics Engineering Department',
-    period: '2025 — 2026',
+    period: '2025 - 2026',
     description:
       'Assisted in teaching web development fundamentals to undergraduate students. Created learning materials, reviewed code assignments, conducted lab sessions, and provided one-on-one mentoring.',
     tags: ['HTML/CSS', 'JavaScript', 'React', 'Mentoring'],
@@ -142,7 +142,7 @@ export const EXPERIENCES: Experience[] = [
   {
     role: ' Informatics Engineering Student',
     company: 'University',
-    period: '2023 — Present',
+    period: '2023 - Present',
     description:
       'Pursuing a degree in Informatics Engineering. Active in software development, AI/ML exploration, and tech community activities. Focus on building strong foundations in computer science and practical engineering skills.',
     tags: ['Data Structures', 'Algorithms', 'Software Engineering', 'AI'],

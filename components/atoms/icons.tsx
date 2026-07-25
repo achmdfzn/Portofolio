@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-/** Kumpulan icon SVG inline — tanpa dependency eksternal. */
+/** Collection of inline SVG icons - zero external dependencies. */
 
 export function GitHubIcon(props: SVGProps<SVGSVGElement>) {
   return (

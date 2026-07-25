@@ -66,7 +66,7 @@ export default function HeroSection() {
             ))}
           </p>
           <p style={{ color: 'var(--color-text-muted)' }}>
-            <span style={{ color: 'var(--color-success)' }}>$</span> ready —
+            <span style={{ color: 'var(--color-success)' }}>$</span> ready -
             <span style={{ color: 'var(--color-accent)' }}> deploy 2026</span>
           </p>
         </div>

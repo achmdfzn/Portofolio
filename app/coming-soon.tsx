@@ -34,7 +34,7 @@ export default function ComingSoon() {
         </span>
       </div>
 
-      {/* Nama — pixel font + glow */}
+      {/* Name - pixel font + glow */}
       <h1
         className="animate-fade-up glow-accent mb-4 leading-tight"
         style={{

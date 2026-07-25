@@ -1,6 +1,6 @@
 /**
- * Menggabungkan className secara kondisional.
- * Menyaring nilai falsy dan menggabungkan sisanya dengan spasi.
+ * Combines className values conditionally.
+ * Filters falsy values and joins the rest with spaces.
  */
 export function cn(...classes: Array<string | false | null | undefined>): string {
   return classes.filter(Boolean).join(' ');

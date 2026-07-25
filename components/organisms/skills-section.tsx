@@ -42,7 +42,7 @@ export default function SkillsSection() {
         Tech Stack
       </h3>
 
-      {/* Animated marquee — all skills running with brand icons */}
+      {/* Animated marquee - all skills running with brand icons */}
       <div
         className="mb-10 w-full overflow-hidden rounded border py-3"
         style={{
