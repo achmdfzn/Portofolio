@@ -6,6 +6,7 @@ import ProjectsSection from '@/components/organisms/projects-section';
 import ExperienceSection from '@/components/organisms/experience-section';
 import ContactSection from '@/components/organisms/contact-section';
 import Footer from '@/components/organisms/footer';
+import AnimateIn from '@/components/atoms/animate-in';
 
 export default function HomePage() {
   return (
@@ -13,11 +14,11 @@ export default function HomePage() {
       <Navbar />
       <main className="flex-1" style={{ paddingTop: '56px' }}>
         <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <ExperienceSection />
-        <ContactSection />
+        <AnimateIn><AboutSection /></AnimateIn>
+        <AnimateIn delay={0.1}><SkillsSection /></AnimateIn>
+        <AnimateIn delay={0.2}><ProjectsSection /></AnimateIn>
+        <AnimateIn delay={0.3}><ExperienceSection /></AnimateIn>
+        <AnimateIn delay={0.4}><ContactSection /></AnimateIn>
       </main>
       <Footer />
     </>

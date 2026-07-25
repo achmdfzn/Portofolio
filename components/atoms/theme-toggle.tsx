@@ -10,7 +10,7 @@ export function ThemeToggle() {
     <button
       onClick={toggleTheme}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="theme-toggle-btn fixed top-5 right-5 z-50 flex h-10 w-10 items-center justify-center rounded border"
+      className="theme-toggle-btn fixed top-4 right-4 z-50 flex h-8 w-8 items-center justify-center rounded border"
       style={{
         background: 'var(--color-surface)',
         borderColor: 'var(--color-border)',
