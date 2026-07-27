@@ -1,7 +1,24 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import type { MouseEvent, KeyboardEvent } from 'react';
 import { PROJECTS } from '@/constants';
 import TiltCard from '@/components/atoms/tilt-card';
 
 export default function ProjectsSection() {
+  const router = useRouter();
+
+  const goToProject = (slug: string) => {
+    router.push(`/projects/${slug}`);
+  };
+
+  const handleKeyDown = (slug: string) => (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      goToProject(slug);
+    }
+  };
+
   return (
     <section
       className="mx-auto flex max-w-4xl flex-col items-center px-5 py-24"
@@ -21,78 +38,87 @@ export default function ProjectsSection() {
       </h3>
 
       <div className="grid w-full gap-6 sm:grid-cols-2">
-        {PROJECTS.map(({ title, description, tags, href, source }) => (
+        {PROJECTS.map(({ title, slug, description, tags, source }) => (
           <TiltCard key={title}>
-            <article
-              className="group flex flex-col rounded border p-6 transition-all duration-200"
-              style={{
-                background: 'var(--color-surface)',
-                borderColor: 'var(--color-border)',
-              }}
+            <div
+              role="link"
+              tabIndex={0}
+              aria-label={`View details for ${title}`}
+              className="block cursor-pointer"
+              onClick={() => goToProject(slug)}
+              onKeyDown={handleKeyDown(slug)}
             >
-              {/* Icon area */}
-              <div
-                className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded"
-                style={{ background: 'var(--color-accent-dim)' }}
+              <article
+                className="group flex flex-col rounded border p-6 transition-all duration-200"
+                style={{
+                  background: 'var(--color-surface)',
+                  borderColor: 'var(--color-border)',
+                }}
               >
-                <span style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-mono)', fontSize: '1.1rem' }}>&#60;/&#62;</span>
-              </div>
+                {/* Icon area */}
+                <div
+                  className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded"
+                  style={{ background: 'var(--color-accent-dim)' }}
+                >
+                  <span style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-mono)', fontSize: '1.1rem' }}>&#60;/&#62;</span>
+                </div>
 
-              <h4
-                className="mb-2 text-lg font-semibold"
-                style={{ color: 'var(--color-text-primary)' }}
-              >
-                {title}
-              </h4>
+                <h4
+                  className="mb-2 text-lg font-semibold"
+                  style={{ color: 'var(--color-text-primary)' }}
+                >
+                  {title}
+                </h4>
 
-              <p
-                className="mb-4 flex-1 text-sm leading-relaxed"
-                style={{ color: 'var(--color-text-secondary)' }}
-              >
-                {description}
-              </p>
+                <p
+                  className="mb-4 flex-1 text-sm leading-relaxed"
+                  style={{ color: 'var(--color-text-secondary)' }}
+                >
+                  {description}
+                </p>
 
-              {/* Tags */}
-              <div className="mb-4 flex flex-wrap gap-2">
-                {tags.map((tag) => (
+                {/* Tags */}
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded px-2 py-0.5 text-xs"
+                      style={{
+                        background: 'var(--color-surface-2)',
+                        color: 'var(--color-text-muted)',
+                        fontFamily: 'var(--font-mono)',
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Links */}
+                <div className="flex items-center gap-4">
                   <span
-                    key={tag}
-                    className="rounded px-2 py-0.5 text-xs"
-                    style={{
-                      background: 'var(--color-surface-2)',
-                      color: 'var(--color-text-muted)',
-                      fontFamily: 'var(--font-mono)',
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Links */}
-              <div className="flex items-center gap-4">
-                {href && (
-                  <a
-                    href={href}
-                    className="text-sm font-medium transition-colors"
+                    className="text-sm font-medium"
                     style={{ color: 'var(--color-accent)' }}
                   >
-                    Live Demo →
-                  </a>
-                )}
-                {source && (
-                  <a
-                    href={source}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm transition-colors"
-                    style={{ color: 'var(--color-text-muted)' }}
-                  >
-                    Source Code →
-                  </a>
-                )}
-              </div>
-            </article>
+                    View Details &rarr;
+                  </span>
+                  {source && (
+                    <a
+                      href={source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm transition-colors"
+                      style={{ color: 'var(--color-text-muted)' }}
+                      onClick={(e: MouseEvent<HTMLAnchorElement>) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      Source Code &rarr;
+                    </a>
+                  )}
+                </div>
+              </article>
+            </div>
           </TiltCard>
         ))}
       </div>

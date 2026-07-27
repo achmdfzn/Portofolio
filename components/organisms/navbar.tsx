@@ -49,6 +49,7 @@ export default function Navbar() {
         {/* Logo / Name */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Scroll to top"
           className="text-sm font-semibold"
           style={{ color: 'var(--color-accent)', letterSpacing: '0.05em' }}
         >
@@ -61,6 +62,7 @@ export default function Navbar() {
             <li key={label}>
               <button
                 onClick={() => handleClick(href)}
+                aria-current={activeSection === href.slice(1) ? 'page' : undefined}
                 className="relative text-sm transition-colors"
                 style={{
                   color:
@@ -121,6 +123,9 @@ export default function Navbar() {
           menuOpen ? 'max-h-80' : 'max-h-0',
         )}
         style={{ borderColor: 'var(--color-border)' }}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') setMenuOpen(false);
+        }}
       >
         <ul className="flex flex-col gap-2 px-5 py-4">
           {NAV_ITEMS.map(({ label, href }) => (

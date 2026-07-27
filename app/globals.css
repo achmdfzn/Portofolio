@@ -214,11 +214,14 @@ body {
   color: var(--color-accent);
 }
 
-/* Smooth transisi antar tema */
-body,
-body *,
-body *::before,
-body *::after {
+/* Theme-aware transition on interactive elements only */
+.theme-toggle-btn,
+.social-link,
+nav button,
+nav a,
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
   transition: background-color 300ms ease,
               border-color 300ms ease,
               color 300ms ease;
