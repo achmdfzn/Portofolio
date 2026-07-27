@@ -3,495 +3,430 @@
 
 ---
 
-## 1. Ringkasan Eksekutif
+## 1. Executive Summary
 
-### Visi Proyek
-Membangun website portofolio profesional yang menjadi representasi identitas digital Achmad Fauzan sebagai Software Engineer, AI Engineer, dan Tech Entrepreneur dengan standar industri modern, menampilkan kemampuan teknis, proyek unggulan, dan perjalanan karier secara menarik dan mudah diakses.
+### Project Vision
+Build a professional portfolio website that represents Achmad Fauzan's digital identity as a Software Engineer, AI Enthusiast, and Tech Builder — with modern industry standards, showcasing technical skills, featured projects, and career journey in an engaging and accessible way.
 
-### Tujuan Utama
-- Membangun personal branding yang kuat di industri teknologi
-- Menampilkan kemampuan teknis dan portfolio proyek secara profesional
-- Menarik perhatian recruiter, startup, dan calon klien
-- Menjadi platform showcase untuk penelitian akademik dan kontribusi open source
-- Membangun kredibilitas sebagai profesional di bidang Web Development, AI/ML, dan Software Engineering
+### Primary Goals
+- Build strong personal branding in the technology industry
+- Showcase technical skills and project portfolio professionally
+- Attract recruiters, startups, and potential clients
+- Platform for academic research and open source contributions
+- Build credibility in Web Development, AI/ML, and Software Engineering
 
-### Target Pengguna
-1. **Recruiter & Hiring Manager** - Mencari kandidat berkualitas untuk posisi Software Engineer, Full Stack Developer, atau AI Engineer
-2. **Startup Founder & Tech Lead** - Mencari talent untuk bergabung dalam tim atau kolaborasi proyek
-3. **Potential Clients** - Membutuhkan jasa pengembangan website, aplikasi, atau solusi teknologi
-4. **Academic Community** - Dosen, peneliti, atau mahasiswa yang tertarik dengan penelitian dan proyek akademik
-5. **Tech Community** - Developer, engineer, atau tech enthusiast yang ingin berkolaborasi atau networking
+### Target Audience
+1. **Recruiters & Hiring Managers** — Seeking qualified candidates for Software Engineer, Full Stack Developer, or AI Engineer roles
+2. **Startup Founders & Tech Leads** — Looking for talent to join teams or collaborate on projects
+3. **Potential Clients** — Needing website development, applications, or technology solutions
+4. **Academic Community** — Lecturers, researchers, students interested in research and academic projects
+5. **Tech Community** — Developers, engineers, tech enthusiasts wanting to collaborate or network
 
 ---
 
-## 2. Permasalahan yang Diselesaikan
+## 2. Problems Solved
 
 ### Problem Statement
-1. Banyak portofolio yang terlihat generik dan tidak memorable
-2. Sulitnya menampilkan technical skill dan project complexity secara visual yang menarik
-3. Pengalaman pengguna yang buruk pada website portofolio (lambat, tidak responsif, navigasi membingungkan)
-4. Kesulitan membangun personal branding yang unik di tengah persaingan industri teknologi
-5. Kurangnya dokumentasi profesional yang menjelaskan proses development secara transparan
+1. Many portfolios look generic and unmemorable
+2. Difficulty displaying technical skills and project complexity in visually engaging ways
+3. Poor user experience on portfolio websites (slow, unresponsive, confusing navigation)
+4. Difficulty building unique personal branding amid industry competition
+5. Lack of professional documentation explaining development process transparently
 
-### Solusi yang Ditawarkan
-1. **Identitas Visual Unik** - Konsep Modern Pixel Aesthetic yang menggabungkan retro pixel art dengan desain modern minimalis
-2. **User Experience Optimal** - Navigasi intuitif, loading cepat, responsif sempurna, dan aksesibilitas tinggi
-3. **Professional Showcase** - Menampilkan proyek, skill, dan achievements dengan storytelling yang menarik
-4. **Technical Excellence** - Dibangun dengan teknologi modern (Next.js, TypeScript, Tailwind CSS) yang membuktikan kemampuan teknis
-5. **Comprehensive Documentation** - Dokumentasi lengkap dari visi hingga implementasi teknis
-
----
-
-## 3. Nilai yang Ditawarkan (Value Proposition)
-
-### Untuk Recruiter
-- Akses cepat ke informasi skill, experience, dan portfolio proyek
-- Bukti kemampuan teknis melalui kualitas website itu sendiri
-- Kemudahan kontak dan download CV/resume
-
-### Untuk Startup & Clients
-- Demonstrasi kemampuan problem-solving dan technical execution
-- Portfolio proyek nyata dengan case study lengkap
-- Transparansi dalam proses development dan tech stack yang digunakan
-
-### Untuk Community
-- Konten berkualitas (blog, tutorial, research)
-- Open source contribution yang dapat diakses
-- Networking dan kolaborasi opportunities
+### Solution Approach
+1. **Unique Visual Identity** — Modern Pixel Aesthetic combining retro pixel art with modern minimalist design
+2. **Optimal User Experience** — Intuitive navigation, fast loading, fully responsive, high accessibility
+3. **Professional Showcase** — Display projects, skills, and achievements with engaging storytelling
+4. **Technical Excellence** — Built with modern technology (Next.js, TypeScript, Tailwind CSS) proving technical capability
+5. **Comprehensive Documentation** — Complete documentation from vision to technical implementation
 
 ---
 
-## 4. Fitur Utama
+## 3. Value Proposition
 
-### Phase 1: Landing Page - Coming Soon (Current)
-- **Hero Section** dengan nama, headline, dan tagline profesional
-- **Status Development** dengan countdown atau progress indicator
-- **Social Links** (GitHub, LinkedIn, Email) dengan hover animation
-- **Visual Identity** dengan pixel aesthetic modern dan animasi ringan
-- **Responsive Design** sempurna di semua device
-- **Performance Optimization** dengan loading time < 2 detik
+### For Recruiters
+- Quick access to skill information, experience, and project portfolio
+- Proof of technical capability through website quality itself
+- Easy contact and CV/resume download
 
-### Phase 2: Homepage & Core Pages
-- **Navigation Bar** sticky dengan smooth scroll dan active state
-- **Hero Section** dengan animated introduction dan CTA buttons
-- **About Section** dengan foto profesional, bio singkat, dan key highlights
-- **Skills Section** dengan kategori skill dan level indicator
-- **Projects Showcase** dengan filter, thumbnail, dan quick preview
-- **Experience Timeline** dengan visualisasi perjalanan karier
-- **Contact Form** dengan validation dan email integration
-- **Footer** dengan quick links dan social media
+### For Startups & Clients
+- Demonstration of problem-solving and technical execution ability
+- Real project portfolio with case studies
+- Transparency in development process and tech stack
 
-### Phase 3: Project Detail & Content
-- **Project Detail Page** dengan case study, tech stack, challenges, dan solution
-- **Blog System** dengan content management, tagging, dan search
-- **Research Page** untuk publikasi akademik dan paper
-- **Certificates & Achievements** showcase
-- **Testimonials** dari klien, kolega, atau mentor
-
-### Phase 4: Advanced Features
-- **Dark/Light Mode Toggle** dengan smooth transition
-- **Multi-language Support** (Indonesia & English)
-- **Analytics Dashboard** untuk track visitor engagement
-- **Admin Panel** untuk content management
-- **Interactive Resume** yang dapat di-download dalam format PDF
-- **Animation Preferences** untuk accessibility (reduce motion)
+### For Community
+- Quality content through potential blog/tutorials/research
+- Accessible open source contributions
+- Networking and collaboration opportunities
 
 ---
 
-## 5. Roadmap Pengembangan
+## 4. Core Features
 
-### Q3 2026 - Foundation
-- ✅ Dokumentasi proyek (PRD, Design, Agents, Claude, Skill)
-- 🚧 Landing Page - Coming Soon
-- Setup project structure dengan Next.js App Router
-- Design system implementation (colors, typography, components)
-- Core animation dan micro-interactions
+### Phase 1: Landing Page - Coming Soon (Complete)
+- **Hero Section** with name, headline, professional tagline
+- **Development Status** with countdown or progress indicator
+- **Social Links** (GitHub, LinkedIn, Email) with hover animation
+- **Visual Identity** with modern pixel aesthetic and light animation
+- **Responsive Design** perfect on all devices
+- **Performance Optimization** with loading time < 2 seconds
 
-### Q4 2026 - Core Features
-- Homepage dengan semua section utama
-- About, Skills, Projects, Experience pages
-- Contact form dengan email integration
-- Responsive design refinement
-- Performance optimization (Core Web Vitals)
-- SEO implementation
+### Phase 2: Homepage & Core Pages (In Progress)
+- **Navigation Bar** sticky with smooth scroll and active state
+- **Hero Section** with animated introduction and CTA buttons
+- **About Section** with focus areas, engineering principles
+- **Skills Section** with animated marquee, category tabs, progress bars
+- **Projects Showcase** with 3D tilt cards, tags, source links
+- **Experience Timeline** with visual career journey
+- **Contact Section** with social links
+- **Footer** with copyright and attribution
+- **Dark/Light Theme Toggle** with smooth transition, localStorage persistence, system preference detection
 
-### Q1 2027 - Content & Enhancement
-- Project detail pages dengan case studies
-- Blog system dengan CMS
+### Phase 3: Content & Enhancement (Planned)
+- Project detail pages with case studies
+- Blog system with content management
 - Research & publications section
 - Certificates showcase
-- Testing dan bug fixes
+- Testing and bug fixes
 - User feedback implementation
 
-### Q2 2027 - Advanced Features
-- Dark mode implementation
+### Phase 4: Advanced Features (Future)
 - Multi-language support
 - Analytics dashboard
-- Admin panel untuk content management
-- Advanced animations dan interactions
-- Accessibility audit dan improvement
+- Admin panel for content management
+- Advanced animations and interactions
+- Accessibility audit and improvements
+- Contact form with email integration
 
 ---
 
-## 6. Kebutuhan Fungsional
+## 5. Development Roadmap
 
-### KF-001: Navigation System
-- User dapat mengakses semua halaman melalui navigation bar
-- Navigation bar sticky di scroll dengan smooth animation
-- Active state indicator pada page yang sedang dibuka
-- Mobile navigation dengan hamburger menu
-- Smooth scroll ke section tertentu
+### Q3 2026 - Foundation (Complete)
+- ✅ Project documentation (PRD, Design, Agents, Claude, Skill)
+- ✅ Landing Page - Coming Soon with countdown
+- ✅ Project structure with Next.js App Router
+- ✅ Design system implementation (colors, typography, components)
+- ✅ Core animation and micro-interactions
+- ✅ Dark/Light theme toggle
+- ✅ Skills section with animated marquee and brand icons
 
-### KF-002: Content Management
-- Admin dapat menambah, edit, dan hapus project
-- Admin dapat publish blog post dengan rich text editor
-- Admin dapat update skills dan experience
-- Content dapat di-preview sebelum publish
-- Upload dan management media (images, files)
+### Q4 2026 - Core Features
+- ⬜ Complete homepage with all sections
+- ⬜ Project detail pages
+- ⬜ Contact form with email integration
+- ⬜ Responsive design refinement
+- ⬜ Performance optimization (Core Web Vitals)
+- ⬜ SEO implementation
 
-### KF-003: Project Showcase
-- User dapat melihat list project dengan thumbnail
-- User dapat filter project berdasarkan kategori/tech stack
-- User dapat search project berdasarkan keyword
-- User dapat melihat detail project dengan case study
-- Link ke live demo dan source code tersedia
+### Q1 2027 - Content & Enhancement
+- ⬜ Blog system with CMS
+- ⬜ Research & publications section
+- ⬜ Certificates showcase
+- ⬜ Testing and bug fixes
 
-### KF-004: Contact System
-- User dapat mengirim pesan melalui contact form
-- Form validation untuk semua field
-- Email notification ke admin saat ada pesan baru
-- Auto-reply email ke sender
-- Anti-spam mechanism (reCAPTCHA atau honeypot)
+### Q2 2027 - Advanced Features
+- ⬜ Multi-language support
+- ⬜ Analytics dashboard
+- ⬜ Admin panel for content management
+- ⬜ Accessibility audit and improvement
 
-### KF-005: Responsive Design
-- Layout menyesuaikan di desktop (1920px+)
-- Layout menyesuaikan di laptop (1366px - 1919px)
-- Layout menyesuaikan di tablet (768px - 1365px)
-- Layout menyesuaikan di mobile (320px - 767px)
-- Touch-friendly interactions di mobile device
+---
 
-### KF-006: Performance
-- First Contentful Paint (FCP) < 1.8 detik
-- Largest Contentful Paint (LCP) < 2.5 detik
+## 6. Functional Requirements
+
+### FR-001: Navigation System
+- User can access all pages through navigation bar
+- Navigation bar sticky on scroll with smooth animation
+- Active state indicator on current page/section
+- Mobile navigation with hamburger menu
+- Smooth scroll to specific sections
+
+### FR-002: Theme Toggle
+- User can switch between dark and light themes
+- Theme preference persists in localStorage
+- System preference detected on first visit
+- Smooth transition between themes (300ms ease)
+- Anti-flicker inline script prevents flash before hydration
+
+### FR-003: Skills Display
+- Skills shown in animated marquee ticker
+- Category tabs filter skills (Frontend, Backend, AI/ML, Cloud, Tools)
+- Progress bars for each skill level
+- Brand SVG icons for each technology
+- Marquee pauses on hover for usability
+
+### FR-004: Project Showcase
+- User can view project list with cards
+- 3D tilt effect on hover for interactivity
+- Tags show technologies used
+- Links to source code and live demo
+- Project cards wrapped in AnimateIn for scroll-reveal
+
+### FR-005: Auto-Launch System
+- Before launch date: Landing page with countdown timer
+- After launch date: Full homepage automatically
+- Date check runs every second via client component
+- No redeploy needed at launch time
+
+### FR-006: Responsive Design
+- Layout adapts to desktop (1920px+)
+- Layout adapts to laptop (1366px - 1919px)
+- Layout adapts to tablet (768px - 1365px)
+- Layout adapts to mobile (320px - 767px)
+- Touch-friendly interactions on mobile
+
+### FR-007: Performance
+- First Contentful Paint (FCP) < 1.8 seconds
+- Largest Contentful Paint (LCP) < 2.5 seconds
 - Cumulative Layout Shift (CLS) < 0.1
-- First Input Delay (FID) < 100ms
-- Image optimization dengan lazy loading
+- Image optimization with lazy loading
+- Bundle JS < 200KB gzipped
 
-### KF-007: SEO Optimization
-- Meta tags optimization (title, description, keywords)
-- Open Graph tags untuk social media sharing
-- Structured data (JSON-LD) untuk rich snippets
+### FR-008: SEO Optimization
+- Meta tags optimization (title, description)
+- Open Graph tags for social media sharing
+- Structured data (JSON-LD) for rich snippets
 - XML sitemap generation
 - Robots.txt configuration
 
-### KF-008: Accessibility
+### FR-009: Accessibility
 - Semantic HTML structure
-- ARIA labels untuk interactive elements
+- ARIA labels for interactive elements
 - Keyboard navigation support
 - Screen reader compatibility
-- Color contrast ratio minimal 4.5:1
-- Focus indicators yang jelas
+- Color contrast ratio minimum 4.5:1
+- Focus indicators that are visible
 
 ---
 
-## 7. Kebutuhan Non-Fungsional
+## 7. Non-Functional Requirements
 
 ### Performance
-- Loading time halaman < 2 detik pada koneksi 4G
-- Time to Interactive (TTI) < 3.5 detik
+- Page loading time < 2 seconds on 4G connection
+- Time to Interactive (TTI) < 3.5 seconds
 - Bundle size JavaScript < 200KB (gzipped)
-- Smooth 60fps animation di semua device
-- Optimal Lighthouse score (> 90 untuk semua kategori)
+- Smooth 60fps animation on all devices
+- Lighthouse score > 90 for all categories
 
 ### Security
-- HTTPS implementation di production
-- Input sanitization untuk semua form
-- Protection terhadap XSS dan CSRF attacks
-- Rate limiting untuk API endpoints
-- Secure headers (CSP, X-Frame-Options, etc.)
+- HTTPS in production
+- Input sanitization for all forms
+- Protection against XSS and CSRF
+- Secure headers (CSP, X-Frame-Options)
 
 ### Scalability
-- Code structure yang modular dan reusable
+- Modular and reusable code structure
 - Component-based architecture
-- State management yang efficient
-- API design yang RESTful atau GraphQL
-- Database schema yang normalized
+- Efficient state management
+- Server Components as default
 
 ### Maintainability
-- Clean code dengan TypeScript strict mode
+- Clean code with TypeScript strict mode
 - Comprehensive documentation
-- Unit testing untuk critical functions
-- Integration testing untuk user flows
-- Version control dengan Git (semantic versioning)
+- Atomic Design component organization
+- Version control with Conventional Commits
 
 ### Usability
-- Intuitive navigation tanpa learning curve
-- Konsistensi visual di semua halaman
-- Feedback visual untuk setiap user interaction
-- Error handling yang user-friendly
-- Loading states yang informatif
+- Intuitive navigation with no learning curve
+- Visual consistency across all pages
+- Visual feedback for every user interaction
+- User-friendly error handling
+- Informative loading states
 
 ### Compatibility
-- Support browser modern (Chrome, Firefox, Safari, Edge) 2 versi terakhir
-- Graceful degradation untuk browser lama
+- Modern browser support (Chrome, Firefox, Safari, Edge) - last 2 versions
+- Graceful degradation for older browsers
 - Progressive enhancement approach
-- Cross-platform consistency (Windows, macOS, Linux, iOS, Android)
+- Cross-platform consistency
 
 ---
 
-## 8. Arsitektur Aplikasi
+## 8. Application Architecture
 
 ### Tech Stack
 
 #### Frontend
-- **Framework**: Next.js 16.2+ (App Router, React 19 Server Components)
+- **Framework**: Next.js 16+ (App Router, React 19 Server Components)
 - **Language**: TypeScript 5+ (strict mode)
 - **Styling**: Tailwind CSS v4 (CSS-first config via `@theme`)
-- **UI Components**: Shadcn UI (rencana Phase 3)
-- **Animation**: Framer Motion (rencana Phase 3)
-- **Icons**: Inline SVG components (Lucide React opsional Phase 3)
+- **Animation**: Framer Motion
+- **Icons**: Inline SVG components
 - **Font**: Geist Sans/Mono + Press Start 2P (pixel accent)
 
 #### Backend (Future)
 - **API**: Next.js API Routes / Server Actions
-- **Database**: PostgreSQL (Vercel Postgres) atau Supabase
-- **ORM**: Prisma atau Drizzle
+- **Database**: PostgreSQL (Vercel Postgres) or Supabase
+- **ORM**: Prisma or Drizzle
 - **Authentication**: NextAuth.js
-- **File Storage**: Vercel Blob Storage atau Cloudinary
 
 #### Development & Deployment
-- **Package Manager**: bun
+- **Package Manager**: npm
 - **Version Control**: Git + GitHub
-- **Code Quality**: ESLint + Prettier + Husky
-- **Testing**: Vitest + React Testing Library + Playwright
+- **Code Quality**: TypeScript strict + ESLint
 - **Deployment**: Vercel
-- **Analytics**: Vercel Analytics + Google Analytics
-- **Monitoring**: Vercel Speed Insights + Sentry (error tracking)
 
 ### Folder Structure
 
-	```
-	portofolio/
-	├── app/                       # Next.js App Router pages
-	│   ├── favicon.ico            # Site favicon
-	│   ├── globals.css            # Tailwind imports & design tokens
-	│   ├── layout.tsx             # Root layout
-	│   ├── page.tsx               # Root page (landing — coming soon)
-	│   ├── robots.ts              # SEO robots.txt config
-	│   └── sitemap.ts             # SEO sitemap config
-	├── components/                # Shared React components
-	│   ├── atoms/                 # Atomic design — atoms
-	│   │   ├── button.tsx
-	│   │   └── icons.tsx
-	│   └── molecules/             # Atomic design — molecules
-	│       └── countdown-timer.tsx
-	├── constants/                 # App constants
-	│   └── index.ts
-	├── lib/                       # Utility functions
-	│   └── utils.ts
-	├── public/                    # Static assets (images, fonts, icons)
-	├── AGENTS.md                  # AI Agents Definition
-	├── CLAUDE.md                  # Claude AI Working Rules
-	├── DESIGN.md                  # Design System Documentation
-	├── PRD.md                     # Product Requirements Document
-	├── README.md                  # Project overview
-	├── SKILL.md                   # Professional Skills Profile
-	├── bun.lock                   # Bun lockfile
-	├── eslint.config.mjs          # ESLint configuration
-	├── next-env.d.ts              # Next.js TypeScript declarations
-	├── next.config.ts             # Next.js configuration
-	├── package.json               # Dependencies
-	├── postcss.config.mjs         # PostCSS configuration
-	└── tsconfig.json              # TypeScript configuration
-	```
-
-### Architecture Patterns
-- **Atomic Design** untuk component organization
-- **Clean Architecture** untuk separation of concerns
-- **Feature-Sliced Design** untuk scalability
-- **Server Components** sebagai default, Client Components hanya jika diperlukan
-- **Composition over Inheritance** untuk reusability
-- **Single Responsibility Principle** untuk setiap component
-
----
-
-## 9. User Flow
-
-### Landing Page Flow
 ```
-User masuk website
-  ↓
-Melihat hero section (nama, headline, status development)
-  ↓
-Membaca deskripsi singkat
-  ↓
-Melihat countdown/progress indicator
-  ↓
-Click social links (GitHub/LinkedIn/Email)
-  ↓
-Redirect ke platform yang dipilih
-```
-
-### Main Website Flow (Future)
-```
-User masuk homepage
-  ↓
-Scroll hero section → About → Skills → Projects → Experience → Contact
-  ↓
-                    ↓
-                Tertarik pada project tertentu
-                    ↓
-                Click project card
-                    ↓
-                Masuk ke project detail page
-                    ↓
-                Membaca case study
-                    ↓
-                Click live demo / source code
+portofolio/
+├── app/                       # Next.js App Router pages
+│   ├── globals.css            # Tailwind imports & design tokens
+│   ├── layout.tsx             # Root layout
+│   ├── page.tsx               # Root page (landing or homepage)
+│   ├── page-gate.tsx          # Date gate: ComingSoon vs HomePage
+│   ├── coming-soon.tsx        # Landing page before launch
+│   ├── home-page.tsx          # Full homepage assembly
+│   ├── robots.ts              # SEO robots.txt
+│   └── sitemap.ts             # SEO sitemap
+├── components/
+│   ├── atoms/                 # Smallest UI components
+│   │   ├── animate-in.tsx     # Scroll-reveal wrapper
+│   │   ├── icons.tsx          # SVG icon components
+│   │   ├── tech-icons.tsx     # Brand SVG icons for skills
+│   │   ├── theme-toggle.tsx   # Dark/light toggle button
+│   │   └── tilt-card.tsx      # 3D perspective tilt on hover
+│   ├── molecules/
+│   │   └── countdown-timer.tsx # Launch countdown
+│   ├── organisms/
+│   │   ├── about-section.tsx  # Focus areas + principles
+│   │   ├── contact-section.tsx# Social links
+│   │   ├── experience-section.tsx # Timeline
+│   │   ├── footer.tsx         # Copyright
+│   │   ├── hero-section.tsx   # Terminal widget + CTAs
+│   │   ├── navbar.tsx         # Sticky navigation
+│   │   ├── projects-section.tsx # Project cards
+│   │   └── skills-section.tsx # Marquee + tabs + bars
+│   └── theme-provider.tsx     # Theme context provider
+├── constants/
+│   └── index.ts              # All data (skills, projects, etc.)
+├── lib/
+│   └── utils.ts              # cn() utility
+├── public/
+│   ├── images/
+│   │   └── favicon.svg       # Custom pixel avatar icon
+│   └── resume.pdf            # Resume placeholder
+├── AGENTS.md                 # AI Agent definitions
+├── CLAUDE.md                 # Working rules
+├── DESIGN.md                 # Design system
+├── PRD.md                    # Product requirements
+├── README.md                 # Project overview
+├── SKILL.md                  # Professional skills profile
+└── tsconfig.json             # TypeScript configuration
 ```
 
 ---
 
-## 10. Success Metrics
+## 9. Success Metrics
 
 ### Phase 1 Metrics (Landing Page)
-- **Performance**: Lighthouse score > 95 untuk semua kategori
+- **Performance**: Lighthouse score > 95 for all categories
 - **Accessibility**: WCAG 2.1 Level AA compliance
-- **Load Time**: First Contentful Paint < 1 detik
-- **Engagement**: Average time on page > 30 detik
-- **Social Traffic**: Click-through rate ke GitHub/LinkedIn > 10%
+- **Load Time**: First Contentful Paint < 1 second
 
 ### Phase 2 Metrics (Full Website)
-- **Traffic**: 1,000+ unique visitors per bulan dalam 3 bulan pertama
-- **Engagement**: Average session duration > 2 menit
-- **Bounce Rate**: < 50%
-- **Project Views**: Rata-rata 3+ project cards di-click per session
-- **Contact Form**: 5+ submissions berkualitas per bulan
-- **SEO**: Top 10 Google result untuk keyword "Achmad Fauzan portfolio" dalam 6 bulan
-
-### Business Impact Metrics
-- **Job Opportunities**: 5+ interview invitations dalam 6 bulan
-- **Collaboration Requests**: 3+ project collaboration proposals per quarter
-- **Professional Network**: LinkedIn connection growth 20%+ per quarter
-- **Personal Brand**: Recognition di tech community (speaking, writing, mentoring)
+- **Performance**: Lighthouse > 90 for all categories
+- **Engagement**: Average session duration > 2 minutes
+- **SEO**: Top 10 Google result for "Achmad Fauzan portfolio"
+- **Contact**: Growing professional network via displayed links
 
 ---
 
-## 11. Milestone Pengembangan
+## 10. Development Milestones
 
-### Milestone 1: Foundation & Documentation (Week 1-2)
-- ✅ Buat PRD.md (Product Requirements Document)
-- ✅ Buat DESIGN.md (Design System Documentation)
-- ✅ Buat AGENTS.md (AI Agents Definition)
-- ✅ Buat CLAUDE.md (Claude AI Working Rules)
-- ✅ Buat SKILL.md (Professional Skills Profile)
-- ✅ Setup project Next.js dengan TypeScript
-- ✅ Configure Tailwind CSS (v4)
-- ✅ Setup development tools (ESLint)
-- ⬜ Setup Prettier & Husky
-- ⬜ Install Shadcn UI (Phase 3)
+### Milestone 1: Foundation & Documentation (Complete)
+- ✅ PRD.md, DESIGN.md, AGENTS.md, CLAUDE.md, SKILL.md
+- ✅ Next.js project setup with TypeScript
+- ✅ Tailwind CSS v4 configuration
+- ✅ ESLint setup
 
-### Milestone 2: Landing Page Development (Week 3-4)
-- ✅ Implement design system (colors, typography, spacing) via @theme
-- ✅ Create reusable UI komponen (Button, Icons)
-- ✅ Build Landing Page layout dan structure
-- ✅ Implement hero section dengan animasi fade-up
-- ✅ Add countdown/status development indicator
-- ✅ Integrate social links dengan hover effects
-- ✅ Implement responsive design untuk semua devices
-- ✅ Deploy to production (Vercel)
-- ⬜ Performance optimization dan testing
-- ⬜ Accessibility audit dan fixes
+### Milestone 2: Landing Page (Complete)
+- ✅ Design system via @theme (colors, typography, spacing)
+- ✅ Reusable UI components (Icons, ThemeProvider)
+- ✅ Landing page layout and structure
+- ✅ Hero section with fade-up animation
+- ✅ Countdown timer and status indicator
+- ✅ Social links with hover effects
+- ✅ Responsive design for all devices
+- ✅ Vercel deployment
 
-### Milestone 3: Homepage Core Sections (Week 5-8)
-- ⬜ Build navigation system dengan smooth scroll
-- ⬜ Create About section dengan bio dan highlights
-- ⬜ Implement Skills section dengan categorization
-- ⬜ Build Projects showcase dengan filtering
-- ⬜ Create Experience timeline visualization
-- ⬜ Implement Contact form dengan validation
-- ⬜ Add footer dengan links dan social media
-- ⬜ SEO optimization (meta tags, sitemap, robots.txt)
-- ⬜ Performance testing dan optimization
-- ⬜ User testing dan iteration
+### Milestone 3: Homepage Core Sections (Complete)
+- ✅ Navigation system with smooth scroll
+- ✅ About section with focus areas and principles
+- ✅ Skills section with marquee, tabs, brand icons
+- ✅ Projects showcase with 3D tilt cards
+- ✅ Experience timeline visualization
+- ✅ Contact section with social links
+- ✅ Footer with copyright
+- ✅ Dark/light theme toggle with persistence
+- ✅ SEO optimization (meta tags, sitemap, robots.txt)
 
-### Milestone 4: Content Pages (Week 9-12)
-- ⬜ Create Project detail page template
-- ⬜ Build Blog system dengan CMS integration
-- ⬜ Implement Research/Publications page
-- ⬜ Create Certificates showcase
-- ⬜ Add Testimonials section
-- ⬜ Content population untuk semua pages
-- ⬜ Image optimization dan lazy loading
+### Milestone 4: Content & Polish (Planned)
+- ⬜ Project detail pages
+- ⬜ Blog system
+- ⬜ Research and publications
+- ⬜ Certificates showcase
+- ⬜ Performance optimization
 - ⬜ Cross-browser testing
-- ⬜ Final QA dan bug fixes
-- ⬜ Production launch announcement
+- ⬜ Final QA and bug fixes
 
 ### Milestone 5: Advanced Features (Future)
-- ⬜ Implement dark mode dengan theme switcher
-- ⬜ Add multi-language support (i18n)
-- ⬜ Build analytics dashboard
-- ⬜ Create admin panel untuk content management
-- ⬜ Implement advanced animations
-- ⬜ Add animation preferences (reduce motion)
-- ⬜ Comprehensive testing suite
-- ⬜ Security audit dan hardening
-- ⬜ Performance monitoring setup
-- ⬜ Documentation update dan maintenance guide
+- ⬜ Multi-language support
+- ⬜ Analytics dashboard
+- ⬜ Admin panel
+- ⬜ Security audit and hardening
+- ⬜ Documentation update and maintenance guide
 
 ---
 
-## 12. Risks & Mitigation
+## 11. Risks & Mitigation
 
 ### Technical Risks
 | Risk | Impact | Probability | Mitigation |
 |------|--------|-------------|------------|
-| Performance issues pada animasi | High | Medium | Gunakan CSS transform untuk animasi, optimize dengan will-change, testing di low-end devices |
-| Compatibility issues di browser lama | Medium | Low | Progressive enhancement, graceful degradation, transpile dengan target yang sesuai |
-| Bundle size terlalu besar | High | Medium | Code splitting, tree shaking, dynamic imports, analyze bundle dengan tools |
-| SEO tidak optimal dengan App Router | Medium | Medium | Implement metadata API, generate sitemap, server-side rendering untuk content penting |
+| Performance issues on animation | High | Medium | Use CSS transforms for animation, optimize with will-change, test on low-end devices |
+| Compatibility issues in older browsers | Medium | Low | Progressive enhancement, graceful degradation |
+| Bundle size too large | High | Medium | Code splitting, tree shaking, dynamic imports |
+| SEO not optimal with App Router | Medium | Medium | Metadata API, sitemap generation, server rendering for content |
 
 ### Project Risks
 | Risk | Impact | Probability | Mitigation |
 |------|--------|-------------|------------|
-| Scope creep selama development | High | High | Strict adherence ke roadmap, document change requests, prioritize features |
-| Timeline delay karena kompleksitas | Medium | Medium | Time buffer di setiap milestone, MVP approach, parallel development |
+| Scope creep during development | High | High | Strict adherence to roadmap, document change requests, prioritize features |
+| Timeline delay due to complexity | Medium | Medium | Time buffer per milestone, MVP approach |
 | Design inconsistency | Medium | Medium | Comprehensive design system, component library, regular design reviews |
-| Content creation bottleneck | Low | High | Start content creation early, templates untuk case studies, progressive content update |
+| Content creation bottleneck | Low | High | Start content creation early, templates for case studies, progressive content updates |
 
 ---
 
-## 13. Appendix
+## 12. Appendix
 
 ### References & Inspiration
 - **Portfolio Websites**: Brittany Chiang, Leerob, Josh Comeau, Bruno Simon
 - **Design System**: Material Design, Apple HIG, Tailwind UI
 - **Animation**: Stripe, Linear, Framer
 - **Pixel Art**: PICO-8 palette, Lospec color palettes
+- **Agent Workflow**: Superpowers (github.com/obra/superpowers)
 
 ### Glossary
-- **App Router**: Next.js 13+ routing system berbasis file dengan folder app/
-- **Atomic Design**: Metodologi design system dengan komponen atoms, molecules, organisms, templates, pages
-- **Core Web Vitals**: Metrics dari Google untuk mengukur user experience (LCP, FID, CLS)
-- **Modern Pixel Aesthetic**: Gaya visual yang menggabungkan elemen pixel art dengan desain modern minimalis
-- **Server Components**: React component yang dirender di server untuk performance optimal
+- **App Router**: Next.js 13+ routing system based on file system in app/ folder
+- **Atomic Design**: Design system methodology with atoms, molecules, organisms, templates, pages
+- **Core Web Vitals**: Google metrics measuring user experience (LCP, CLS, INP)
+- **Modern Pixel Aesthetic**: Visual style combining pixel art elements with modern minimalist design
+- **Server Components**: React components rendered on server for optimal performance
 
 ### Stakeholders
 - **Owner & Developer**: Achmad Fauzan
-- **Target Users**: Recruiter, startup founders, clients, academic community, tech community
-- **Contributors**: Open untuk community contributions setelah launch
+- **Target Users**: Recruiters, startup founders, clients, academic community, tech community
+- **Contributors**: Open to community contributions after launch
 
 ### Contact & Support
-- **Email**: achmad.fauzan@example.com
-- **GitHub**: github.com/achmadfauzan
+- **Email**: achmddfzn@proton.me
+- **GitHub**: github.com/achmdfzn
 - **LinkedIn**: linkedin.com/in/achmadfauzan
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: 23 Juli 2026  
-**Status**: Draft - In Review  
-**Next Review**: Setelah landing page deployment  
-
----
-
+**Document Version**: 2.0
+**Last Updated**: 27 July 2026
+**Status**: Active
