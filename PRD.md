@@ -277,6 +277,9 @@ portofolio/
 │   ├── page-gate.tsx          # Date gate: ComingSoon vs HomePage
 │   ├── coming-soon.tsx        # Landing page before launch
 │   ├── home-page.tsx          # Full homepage assembly
+│   ├── error.tsx              # Error boundary
+│   ├── loading.tsx            # Loading state
+│   ├── not-found.tsx          # 404 page
 │   ├── robots.ts              # SEO robots.txt
 │   └── sitemap.ts             # SEO sitemap
 ├── components/
